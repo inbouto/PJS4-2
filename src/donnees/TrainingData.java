@@ -1,4 +1,4 @@
-package donnees;
+ package donnees;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import javax.lang.model.element.Element;
 
-public class TrainingData implements IData{
+public class TrainingData extends DataAbstract{
 	//private ArrayList<String> mots;
 	private ArrayList<String> phrases;
 	private ArrayList<String> classes;
@@ -19,7 +19,8 @@ public class TrainingData implements IData{
 	
 	
 	// Constructeur sans paramètre, crée une TrainingData vide
-	public TrainingData(){		
+	public TrainingData(){
+		super();
 		this.phrases = new ArrayList<String>();
 		this.classes = new ArrayList<String>();
 		this.document = new ArrayList<MotClasse>();
@@ -28,6 +29,7 @@ public class TrainingData implements IData{
 	
 	// Constructeur avec un fichier en paramètre, crée une TrainingData contenant les données d'un fichier 
 	public TrainingData(File f){
+		super();
 		this.fichier = f;
 		this.phrases = new ArrayList<String>();
 		this.classes = new ArrayList<String>();
@@ -37,7 +39,6 @@ public class TrainingData implements IData{
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
-		
 	}	
 	
 	// Ajoute une phrase et sa classe dans les listes correspondantes de la Training Data
@@ -117,7 +118,7 @@ public class TrainingData implements IData{
 //		
 //	}
 	
-	// Renvoie la lsite des MotClasse ayant une classe vide // TODO
+	// Renvoie la lsite des MotClasse ayant une classe vide 
 	public ArrayList<MotClasse> getClassesVides(){
 		ArrayList<MotClasse> classesVides = new ArrayList<MotClasse>();
 		for (MotClasse mc : this.document){
@@ -143,6 +144,4 @@ public class TrainingData implements IData{
 	public File getFichier() {
 		return fichier;
 	}
-	
-
 }

@@ -7,8 +7,7 @@ import java.io.Serializable;
 
 public interface IData {
 
-	void save(File f) throws IOException;
-	Object retrieve() throws IOException;
-	
+	String getName();
+	int getId();
 	
 }
