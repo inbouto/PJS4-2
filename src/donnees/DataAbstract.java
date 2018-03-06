@@ -10,7 +10,7 @@ public abstract class DataAbstract implements IData {
 	//private static final long serialVersionUID = 1L;
 	//private Object obj;
 	private int id;
-	private static int NUMERO_DATA;
+	private static int NUMERO_DATA=1;
 	
 //	public Data(Object o){		
 //		this.obj = o;
@@ -20,6 +20,7 @@ public abstract class DataAbstract implements IData {
 	
 	public DataAbstract(){
 		this.id = NUMERO_DATA;
+		numero();
 	}
 	
 	public int numero(){

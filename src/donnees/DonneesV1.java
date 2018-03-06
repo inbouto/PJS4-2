@@ -1,18 +1,28 @@
 package donnees;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import core.InterfaceDonnees;
 
 public class DonneesV1 implements InterfaceDonnees {
-	File fic;
+	private File fic;
+	private ArrayList<IData> listData;
 	
 	public DonneesV1(/*File f*/){
 		//this.fic = f;
+		this.listData = new ArrayList<IData>();
+		
+	}
+	
+	public void setFic(File f){  //Pas sûr de l'utilité
+		this.fic = f;
 	}
 
 	@Override
@@ -22,6 +32,7 @@ public class DonneesV1 implements InterfaceDonnees {
 		if (o instanceof String){
 			DataType1 d = new DataType1();
 			d.setContenu((String)o);
+			this.listData.add(d);
 			return d;
 		}
 		return null;
@@ -34,6 +45,20 @@ public class DonneesV1 implements InterfaceDonnees {
 		//}
 		//return null;
 	}
-
+	
+	public void sauvegarder(File f) throws IOException{
+		for (IData data : listData){
+			data.sauvegarder(f);
+		}
+	}
+	
+	public void charger(File f) throws IOException{ //TODO
+		BufferedReader reader =  new BufferedReader(new FileReader(f));
+		String ligne = "";
+		while ((ligne =reader.readLine()) !=null){
+			IData data = new DataType1();
+		}
+		
+	}
 	
 }
