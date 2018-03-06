@@ -25,12 +25,12 @@ public class TrainingDataTest {
 		td.ajouter("Cette guitare est acoustique", "Musique");
 		td.ajouter("Oui", null);
 		System.out.println("Affichage 1");
-		ArrayList<MotClasse> mc1 = td.getDocument();
+		ArrayList<MotClasse> mc1 = td.getContenu();
 		for (MotClasse m : mc1){
 			System.out.println(m.toString() + m.getNbOccurrences());
 		}
 		try {
-			td.save(f);
+			td.sauvegarder(f);
 			
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -38,7 +38,7 @@ public class TrainingDataTest {
 		
 		System.out.println("Affichage 2");
 		TrainingData td2 = new TrainingData(f);
-		ArrayList<MotClasse> mc = td2.getDocument();
+		ArrayList<MotClasse> mc = td2.getContenu();
 		for (MotClasse m : mc){
 			System.out.println(m.toString() + m.getNbOccurrences());
 		}

@@ -65,10 +65,10 @@ public class CoreComponentManager implements ICoreComponentManager {
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
 					this.ihm = (InterfaceIHM) cc;
 				}
-				else if(InterfaceIA.class.isAssignableFrom(cc.getClass())){
+				else if(InterfaceDonnees.class.isAssignableFrom(cc.getClass())){
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
-					this.ia = (InterfaceIA) cc;
-				}
+					this.donnees = (InterfaceDonnees) cc;
+				}				
 				else{
 					throw new UnknownComponentTypeException();
 					}

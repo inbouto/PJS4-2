@@ -9,5 +9,6 @@ public interface IData {
 
 	String getName();
 	int getId();
+	Object getContenu();
 	
 }
