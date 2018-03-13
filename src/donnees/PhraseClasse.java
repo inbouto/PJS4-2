@@ -1,16 +1,16 @@
 package donnees;
 
-public class MotClasse {
-	private String mot, classe;
+public class PhraseClasse {
+	private String phrase, classe;
 	private int nbOccurrences = 1;
 
-	public MotClasse(String mot, String classe) {		
-		this.mot = mot;
+	public PhraseClasse(String mot, String classe) {		
+		this.phrase = mot;
 		this.classe = classe;
 	}
 
 	public String getMot() {
-		return mot;
+		return phrase;
 	}
 
 	public String getClasse() {
@@ -34,7 +34,7 @@ public class MotClasse {
 	}
 	
 	public String toString(){
-		return this.mot + ";" + this.classe;
+		return this.phrase + ";" + this.classe;
 	}
 	
 }

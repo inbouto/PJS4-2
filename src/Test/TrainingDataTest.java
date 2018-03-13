@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import donnees.MotClasse;
+import donnees.PhraseClasse;
 import donnees.TrainingData;
 
 public class TrainingDataTest {
@@ -25,8 +25,8 @@ public class TrainingDataTest {
 		td.ajouter("Cette guitare est acoustique", "Musique");
 		td.ajouter("Oui", null);
 		System.out.println("Affichage 1");
-		ArrayList<MotClasse> mc1 = td.getContenu();
-		for (MotClasse m : mc1){
+		ArrayList<PhraseClasse> mc1 = td.getContenu();
+		for (PhraseClasse m : mc1){
 			System.out.println(m.toString() + m.getNbOccurrences());
 		}
 		try {
@@ -38,14 +38,14 @@ public class TrainingDataTest {
 		
 		System.out.println("Affichage 2");
 		TrainingData td2 = new TrainingData(f);
-		ArrayList<MotClasse> mc = td2.getContenu();
-		for (MotClasse m : mc){
+		ArrayList<PhraseClasse> mc = td2.getContenu();
+		for (PhraseClasse m : mc){
 			System.out.println(m.toString() + m.getNbOccurrences());
 		}
 		System.out.println("Classes vides : ");
 		
-		ArrayList<MotClasse> mc3 = td2.getClassesVides();
-		for (MotClasse m : mc3){
+		ArrayList<PhraseClasse> mc3 = td2.getClassesVides();
+		for (PhraseClasse m : mc3){
 			System.out.println(m.toString() + m.getNbOccurrences());
 		}
 		

@@ -14,7 +14,7 @@ public class TrainingData extends DataAbstract{
 	//private ArrayList<String> mots;
 	private ArrayList<String> phrases;
 	private ArrayList<String> classes;
-	private ArrayList<MotClasse> contenu; //Contient des MotClasse associant une chaine à une classe
+	private ArrayList<PhraseClasse> contenu; //Contient des MotClasse associant une chaine à une classe
 	private File fichier;
 	
 	
@@ -23,7 +23,7 @@ public class TrainingData extends DataAbstract{
 		super();
 		this.phrases = new ArrayList<String>();
 		this.classes = new ArrayList<String>();
-		this.contenu = new ArrayList<MotClasse>();
+		this.contenu = new ArrayList<PhraseClasse>();
 	}
 	
 	
@@ -33,7 +33,7 @@ public class TrainingData extends DataAbstract{
 		this.fichier = f;
 		this.phrases = new ArrayList<String>();
 		this.classes = new ArrayList<String>();
-		this.contenu = new ArrayList<MotClasse>();
+		this.contenu = new ArrayList<PhraseClasse>();
 		try {
 			this.charger();
 		} catch (IOException e) {			
@@ -50,10 +50,10 @@ public class TrainingData extends DataAbstract{
 		}		
 		this.phrases.add(phrase);
 		
-		MotClasse mc = new MotClasse(phrase, classe);
+		PhraseClasse mc = new PhraseClasse(phrase, classe);
 		// Ajout des MotClasse pour les mots n'existant pas dans la liste
 		boolean contains = false;
-		for (MotClasse element : this.contenu){
+		for (PhraseClasse element : this.contenu){
 			if ((element.getMot().equals(phrase)) && (element.getClasse().equals(classe))){
 				contains = true;
 				element.incNbOccurrences();
@@ -71,7 +71,7 @@ public class TrainingData extends DataAbstract{
 		BufferedReader reader =  new BufferedReader(new FileReader(f));
 		String ligne = "";
 		boolean contains = false;
-		for (MotClasse mc : this.contenu){
+		for (PhraseClasse mc : this.contenu){
 			while ((ligne =reader.readLine()) !=null){
 				if (ligne.equals(mc.toString()))
 						contains = true;
@@ -84,7 +84,7 @@ public class TrainingData extends DataAbstract{
 	}
 	
 	// Recupère les données d'un fichier et actualise les listes de la TrainingData
-		public ArrayList<MotClasse> charger() throws IOException{
+		public ArrayList<PhraseClasse> charger() throws IOException{
 			//File fic = new File("listeMotClasse.txt");
 			BufferedReader reader =  new BufferedReader(new FileReader(this.fichier));
 			String ligne = "";
@@ -92,7 +92,7 @@ public class TrainingData extends DataAbstract{
 				String parts[] = ligne.split(";");
 				this.phrases.add(parts[0]);
 				this.classes.add(parts[1]);
-				MotClasse mc = new MotClasse(parts[0], parts[1]);
+				PhraseClasse mc = new PhraseClasse(parts[0], parts[1]);
 				this.contenu.add(mc);
 			}
 			reader.close();
@@ -119,9 +119,9 @@ public class TrainingData extends DataAbstract{
 //	}
 	
 	// Renvoie la lsite des MotClasse ayant une classe vide 
-	public ArrayList<MotClasse> getClassesVides(){
-		ArrayList<MotClasse> classesVides = new ArrayList<MotClasse>();
-		for (MotClasse mc : this.contenu){
+	public ArrayList<PhraseClasse> getClassesVides(){
+		ArrayList<PhraseClasse> classesVides = new ArrayList<PhraseClasse>();
+		for (PhraseClasse mc : this.contenu){
 			if (mc.getClasse().equals("null")){
 				classesVides.add(mc);
 			}				
@@ -137,7 +137,7 @@ public class TrainingData extends DataAbstract{
 		return classes;
 	}
 
-	public ArrayList<MotClasse> getContenu() {
+	public ArrayList<PhraseClasse> getContenu() {
 		return contenu;
 	}
 

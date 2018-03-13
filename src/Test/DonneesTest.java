@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import org.junit.Test;
 
 import core.InterfaceDonnees;
@@ -23,9 +22,12 @@ public class DonneesTest {
 		IData d2 = donnees.save("Salut");
 		assertEquals(d2.getId(), 2);
 		assertEquals(donnees.retrieve(d2),("Salut"));
+		IData d3 = donnees.save("yo");
+		assertEquals(d3.getId(), 3);
+		assertEquals(donnees.retrieve(d3),("yo"));
 		File f = new File("donneestest.txt");
 		donnees.sauvegarder(f);
-		
+		//ArrayList<IData> ld = donnees.getListData();
 	}
 
 }

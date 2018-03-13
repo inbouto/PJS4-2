@@ -15,6 +15,10 @@ public class DonneesV1 implements InterfaceDonnees {
 	private File fic;
 	private ArrayList<IData> listData;
 	
+//	public ArrayList<IData> getListData() {
+//		return listData;
+//	}
+
 	public DonneesV1(/*File f*/){
 		//this.fic = f;
 		this.listData = new ArrayList<IData>();
@@ -56,8 +60,10 @@ public class DonneesV1 implements InterfaceDonnees {
 		BufferedReader reader =  new BufferedReader(new FileReader(f));
 		String ligne = "";
 		while ((ligne =reader.readLine()) !=null){
-			IData data = new DataType1();
+			DataType1 data = new DataType1();
+			data.setContenu(ligne);				
 		}
+		reader.close();
 		
 	}
 	
