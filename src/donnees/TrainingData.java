@@ -54,7 +54,7 @@ public class TrainingData extends DataAbstract{
 		// Ajout des MotClasse pour les mots n'existant pas dans la liste
 		boolean contains = false;
 		for (PhraseClasse element : this.contenu){
-			if ((element.getMot().equals(phrase)) && (element.getClasse().equals(classe))){
+			if ((element.getPhrase().equals(phrase)) && (element.getClasse().equals(classe))){
 				contains = true;
 				element.incNbOccurrences();
 			}				

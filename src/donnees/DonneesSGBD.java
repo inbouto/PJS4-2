@@ -78,30 +78,44 @@ static {
 		PreparedStatement statement = null;
 		int id = 0;
 		String nom="";
-		String req = "INSERT INTO CLASSES (id, nom) VALUES (?,?) WHERE NOT EXISTS (SELECT (id, nom) FROM CLASSES WHERE id = ? AND nom = ?)";
-		statement = c.prepareStatement(req);
+		//String req = "INSERT INTO CLASSES (id, nom) VALUES (?,?) WHERE NOT EXISTS (SELECT (id, nom) FROM CLASSES WHERE id = ? AND nom = ?)";
+		//insert into CLASSE (id,nom) select 1,'salut' from dual where not exists(select id from classe where id = 1);
+		String req = "insert into CLASSE (id,nom) select ?, ? from dual where not exists(select id from classe where id = ?)";
+		//statement = c.prepareStatement(req);
 		for (int i = 0; i<this.classes.size(); i++){	
 			statement = c.prepareStatement(req);
 			statement.setInt(1, i);
 			statement.setString(2, this.classes.get(i));
 			statement.setInt(3, i);
-			statement.setString(4, this.classes.get(i));
+			//statement.setString(4, this.classes.get(i));
 			//req = "INSERT INTO CLASSES (id, nom) VALUES (?,?) WHERE NOT EXISTS (SELECT (id, nom) FROM CLASSES WHERE id = ? AND nom = ?)";
 			statement.executeUpdate();
+			System.out.println("yo");
 			statement.close();	
 		}
-//		id = 0;
-//		String phrase ="";
-//		int idClasse = 0; 
-//		String req2 = "INSERT INTO PHRASESCLASSES (id, phrase, IdClasse) VALUES (" + id + "," + phrase + "," + idClasse + ") WHERE NOT EXISTS (SELECT (id, phrase, IdClasse) FROM PHRASESCLASSES WHERE id =" + id + "AND phrase =" + phrase + " AND idClasse = " + idClasse;
+		id = 0;
+		String phrase ="";
+		int idClasse = 0; 
+		//String req2 = "INSERT INTO PHRASESCLASSES (id, phrase, IdClasse) VALUES (?, ?, ?) WHERE NOT EXISTS (SELECT (id, phrase, IdClasse) FROM PHRASESCLASSES WHERE id =" + id + "AND phrase =" + phrase + " AND idClasse = " + idClasse;
+		String req2 = "insert into PHRASESCLASSES (id,phrase,IdClasse) select ?, ?, ? from dual where not exists(select id from PHRASESCLASSES where id = ?)";
+		statement = c.prepareStatement(req2);
+		for (int i = 0; i<this.contenu.size(); i++){
+			statement = c.prepareStatement(req2);
+			statement.setInt(1, i);
+			statement.setString(2, this.contenu.get(i).getPhrase());
+			//statement.setString(3, this.contenu.get(i).get());
+			
+		}
 		statement.close();		
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		DonneesSGBD d = new DonneesSGBD();
 		d.ajouterClasse("Salutations");
+		d.ajouterClasse("Nourriture");
 		PhraseClasse p = new PhraseClasse("Bonjour", "Salutations");
 		d.sauvegarder();
+		
 	}
 	
 	@Override

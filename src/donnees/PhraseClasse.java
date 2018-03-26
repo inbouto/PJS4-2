@@ -9,7 +9,7 @@ public class PhraseClasse {
 		this.classe = classe;
 	}
 
-	public String getMot() {
+	public String getPhrase() {
 		return phrase;
 	}
 
