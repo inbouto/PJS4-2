@@ -6,13 +6,26 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DonneesSGBD extends DataAbstract{
-	private Connection c;
+	private static Connection c;
 	private ArrayList<String> classes;
 	private ArrayList<PhraseClasse> contenu;
 	
+static {
+		
+		try {
+			
+			Class.forName("oracle.jdbc.OracleDriver");
+			
+			c = DriverManager.getConnection ("jdbc:oracle:thin:@vs-oracle2:1521:ORCL","GRP201US7","GRP201US7");			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public DonneesSGBD() throws ClassNotFoundException, SQLException {
-		Class.forName("oracle.jdbc.OracleDriver");
-		this.c = DriverManager.getConnection("jdbc:oracle:thin:@vs-oracle2:1521:ORCL","GRP201US7","GRP201US7");
+		
 		this.classes = new ArrayList<String>();
 		this.contenu = new ArrayList<PhraseClasse>();
 	}
@@ -53,28 +66,42 @@ public class DonneesSGBD extends DataAbstract{
 		statement.close();
 	}
 	
+	public void ajouter(String classe, PhraseClasse p){
+		
+	}
+	
+	public void ajouterClasse(String classe){
+		this.classes.add(classe);
+	}
+		
 	public void sauvegarder() throws SQLException{ //TODO finir deuxieme boucle
 		PreparedStatement statement = null;
 		int id = 0;
 		String nom="";
-		String req = "INSERT INTO CLASSES (id, nom) VALUES (" + id +"," + nom + ") WHERE NOT EXISTS (SELECT (id, nom) FROM CLASSES WHERE id =" + id + "AND nom = " + nom;
-		c.prepareStatement(req);
-		Statement requete = c.createStatement();
-		for (int i = 0; i<this.classes.size(); i++){			
-			id = i;
-			nom = this.classes.get(i);
-			req = "INSERT INTO CLASSES (id, nom) VALUES (" + id +"," + nom + ") WHERE NOT EXISTS (SELECT (id, nom) FROM CLASSES WHERE id =" + id + "AND nom = " + nom;
-			ResultSet rs = statement.executeQuery();
-			rs.close();
+		String req = "INSERT INTO CLASSES (id, nom) VALUES (?,?) WHERE NOT EXISTS (SELECT (id, nom) FROM CLASSES WHERE id = ? AND nom = ?)";
+		statement = c.prepareStatement(req);
+		for (int i = 0; i<this.classes.size(); i++){	
+			statement = c.prepareStatement(req);
+			statement.setInt(1, i);
+			statement.setString(2, this.classes.get(i));
+			statement.setInt(3, i);
+			statement.setString(4, this.classes.get(i));
+			//req = "INSERT INTO CLASSES (id, nom) VALUES (?,?) WHERE NOT EXISTS (SELECT (id, nom) FROM CLASSES WHERE id = ? AND nom = ?)";
+			statement.executeUpdate();
+			statement.close();	
 		}
-		id = 0;
-		String phrase ="";
-		int idClasse = 0; 
-		String req2 = "INSERT INTO PHRASESCLASSES (id, phrase, IdClasse) VALUES (" + id + "," + phrase + "," + idClasse + ") WHERE NOT EXISTS (SELECT (id, phrase, IdClasse) FROM PHRASESCLASSES WHERE id =" + id + "AND phrase =" + phrase + " AND idClasse = " + idClasse;
-		requete.close();
-		
-		
-		
+//		id = 0;
+//		String phrase ="";
+//		int idClasse = 0; 
+//		String req2 = "INSERT INTO PHRASESCLASSES (id, phrase, IdClasse) VALUES (" + id + "," + phrase + "," + idClasse + ") WHERE NOT EXISTS (SELECT (id, phrase, IdClasse) FROM PHRASESCLASSES WHERE id =" + id + "AND phrase =" + phrase + " AND idClasse = " + idClasse;
+		statement.close();		
+	}
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		DonneesSGBD d = new DonneesSGBD();
+		d.ajouterClasse("Salutations");
+		PhraseClasse p = new PhraseClasse("Bonjour", "Salutations");
+		d.sauvegarder();
 	}
 	
 	@Override
