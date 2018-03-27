@@ -145,4 +145,10 @@ public class IHMV1_Design extends JPanel implements ActionListener, InterfaceIHM
 	public void affichage(String param) {
 		this.reponse = param;
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

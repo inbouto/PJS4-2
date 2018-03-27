@@ -9,6 +9,5 @@ public interface ICoreComponentManager {
 
 	public InterfaceIHM getIHM();
 	
-	public InterfaceDonnees getDonnees();
 	
 }

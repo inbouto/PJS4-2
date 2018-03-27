@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import core.ICoreComponentManager;
-import core.InterfaceDonnees;
 import core.InterfaceIA;
 import core.InterfaceIHM;
 
@@ -19,7 +18,6 @@ public class CoreComponentManager implements ICoreComponentManager {
 	private InterfaceIHM ihm;
 	private InterfaceIA ia;
 	private String initFile;
-	private InterfaceDonnees donnees;
 
 	//WARNING : N'EST PAS THREAD-SAFE !!!!!
 	
@@ -64,11 +62,7 @@ public class CoreComponentManager implements ICoreComponentManager {
 				else if(InterfaceIHM.class.isAssignableFrom(cc.getClass())){
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
 					this.ihm = (InterfaceIHM) cc;
-				}
-				else if(InterfaceDonnees.class.isAssignableFrom(cc.getClass())){
-					//TODO: Code sale, peut-on faire autrement qu'un cast ???
-					this.donnees = (InterfaceDonnees) cc;
-				}				
+				}		
 				else{
 					throw new UnknownComponentTypeException();
 					}
@@ -102,10 +96,7 @@ public class CoreComponentManager implements ICoreComponentManager {
 		return ihm;
 	}
 
-	@Override
-	public InterfaceDonnees getDonnees() {
-		return donnees;
-	}
+	
 	
 	
 	

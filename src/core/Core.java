@@ -24,7 +24,7 @@ public class Core {
 		
 	}
 	
-	public static InterfaceIA getIA() {
+	/*public static InterfaceIA getIA() {
 		return CCM.getIA();
 	}
 
@@ -33,6 +33,10 @@ public class Core {
 	}
 	public static InterfaceDonnees getDonnees() {
 		return CCM.getDonnees();
+	}*/
+	
+	public static String generateAIResponse(String s){
+		return CCM.getIA().genererReponse(s);
 	}
 
 	

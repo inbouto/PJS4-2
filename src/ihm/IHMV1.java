@@ -21,6 +21,12 @@ public class IHMV1 implements InterfaceIHM{
 		 System.out.println(param);		
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 }
