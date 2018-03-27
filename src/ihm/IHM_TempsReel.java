@@ -10,9 +10,9 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import core.InterfaceIHM;
+import core.InterfaceIHM_Utilisation;
  
-public class IHM_TempsReel extends JFrame implements ActionListener, InterfaceIHM {
+public class IHM_TempsReel extends JFrame implements ActionListener {
 	
 	private JTextField zoneDeSaisie;
     private JTextArea texteUser;
@@ -207,13 +207,11 @@ public class IHM_TempsReel extends JFrame implements ActionListener, InterfaceIH
 	        texteIA.setCaretPosition(texteUser.getDocument().getLength());
 		}
     }
-    
-    @Override
+
 	public String saisie() {		
 		return zoneDeSaisie.getText();
 	}
 
-	@Override
 	public void affichage(String param) {
 		this.reponse = param;
 	}
@@ -230,7 +228,6 @@ public class IHM_TempsReel extends JFrame implements ActionListener, InterfaceIH
         });
     }
 
-	@Override
 	public void run() {
 		try {
 			new IHM_TempsReel();

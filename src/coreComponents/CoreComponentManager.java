@@ -10,13 +10,13 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import core.ICoreComponentManager;
 import core.InterfaceDonnees;
 import core.InterfaceIA;
-import core.InterfaceIHM;
+import core.InterfaceIHM_Utilisation;
 
 public class CoreComponentManager implements ICoreComponentManager {
 
 	
 	private ArrayList<Class<?>> loadedComponents;
-	private InterfaceIHM ihm;
+	private InterfaceIHM_Utilisation ihm;
 	private InterfaceIA ia;
 	private String initFile;
 	private InterfaceDonnees donnees;
@@ -61,9 +61,9 @@ public class CoreComponentManager implements ICoreComponentManager {
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
 					this.ia = (InterfaceIA) cc;
 				}
-				else if(InterfaceIHM.class.isAssignableFrom(cc.getClass())){
+				else if(InterfaceIHM_Utilisation.class.isAssignableFrom(cc.getClass())){
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
-					this.ihm = (InterfaceIHM) cc;
+					this.ihm = (InterfaceIHM_Utilisation) cc;
 				}
 				else if(InterfaceIA.class.isAssignableFrom(cc.getClass())){
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
@@ -98,7 +98,7 @@ public class CoreComponentManager implements ICoreComponentManager {
 	}
 
 	@Override
-	public InterfaceIHM getIHM() {
+	public InterfaceIHM_Utilisation getIHM() {
 		return ihm;
 	}
 

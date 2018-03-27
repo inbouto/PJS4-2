@@ -2,6 +2,6 @@ package core;
 
 public interface InterfaceIHMFactory {
 
-	InterfaceIHM creerIHM ();
+	InterfaceIHM_Utilisation creerIHM ();
 	
 }

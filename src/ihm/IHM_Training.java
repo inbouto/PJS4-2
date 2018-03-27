@@ -214,4 +214,13 @@ public class IHM_Training extends JFrame implements ActionListener {
             }
         });
     }
+    
+    public void run() {
+		try {
+			new IHM_Training();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
 }

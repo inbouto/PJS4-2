@@ -7,7 +7,7 @@ public interface ICoreComponentManager {
 
 	public InterfaceIA getIA();
 
-	public InterfaceIHM getIHM();
+	public InterfaceIHM_Utilisation getIHM();
 	
 	public InterfaceDonnees getDonnees();
 	

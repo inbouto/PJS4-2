@@ -1,7 +1,7 @@
 
 package core;
 
-public interface InterfaceIHM extends Runnable{
+public interface InterfaceIHM_Utilisation extends Runnable{
 
 	public String saisie();
 	
