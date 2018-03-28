@@ -93,7 +93,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
     	//Code du titre
         JPanel panelTitre = new JPanel();
     	
-    	JLabel Titre = new JLabel("INTELLIGENCE ARTIFICIELLE SUPPORT");
+    	JLabel Titre = new JLabel("Chat TechBot");
         Titre.setFont(new Font("Dialog", Font.BOLD, 25));
         Titre.setAlignmentX(Component.CENTER_ALIGNMENT);
         
@@ -227,13 +227,4 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
             }
         });
     }
-
-	public void run() {
-		try {
-			new IHM_TempsReel();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
 }

@@ -163,13 +163,4 @@ public class IHM_Menu extends JFrame implements ActionListener {
             }
         });
     }
-    
-    public void run() {
-		try {
-			new IHM_Menu();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
 }

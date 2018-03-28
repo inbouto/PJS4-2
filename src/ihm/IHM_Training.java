@@ -87,7 +87,7 @@ public class IHM_Training extends JFrame implements ActionListener {
     	//Code du titre
     	JPanel panelTitre = new JPanel();
         
-        JLabel labelTitre = new JLabel("ENTRAINEMENT DE L'IA");
+        JLabel labelTitre = new JLabel("TechBot Training");
         labelTitre.setFont(new Font("Dialog", Font.BOLD, 25));
         labelTitre.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelTitre.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -214,13 +214,4 @@ public class IHM_Training extends JFrame implements ActionListener {
             }
         });
     }
-    
-    public void run() {
-		try {
-			new IHM_Training();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
 }
