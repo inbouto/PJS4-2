@@ -204,6 +204,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	       
 	        texteIA.append(reponse + newline);
 	        texteIA.setCaretPosition(texteUser.getDocument().getLength());
+	        
 		}
     }
 

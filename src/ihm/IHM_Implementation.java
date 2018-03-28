@@ -2,13 +2,13 @@ package ihm;
 
 import java.io.IOException;
 
-import core.Core;
+import core.ICore;
 
 public class IHM_Implementation implements Runnable {
 	
-	private Core Core;
+	private ICore Core;
 
-	public IHM_Implementation (Core core) {
+	public IHM_Implementation (ICore core) {
 		this.Core = core;
 	}
 	

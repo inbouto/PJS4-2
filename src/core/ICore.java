@@ -7,8 +7,6 @@ public interface ICore {
 
 	public String askAI(String s);
 	
-	public ICore getInstance();
-	
 	public void launch();
 	
 }

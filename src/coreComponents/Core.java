@@ -106,8 +106,7 @@ public class Core implements ICore {
 		return this.classifierAI.genererReponse(s);
 	}
 
-	@Override
-	public ICore getInstance() {
+	public static ICore getInstance() {
 		return instance;
 	}
 
