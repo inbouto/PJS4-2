@@ -102,7 +102,8 @@ public class AttenteMail implements Runnable{
                 }
             });
             ThreadAttente idleThread = new ThreadAttente(inbox);
-            idleThread.setDaemon(false);
+            //idleThread.setDaemon(false);
+            //TODO : j'aimerais comprendre c'est quoi ce setDeamon ?
             idleThread.start();
 
             idleThread.join();

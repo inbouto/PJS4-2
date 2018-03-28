@@ -18,13 +18,14 @@ public class Core implements ICore {
 	}
 	private final String initFile;
 	private static Core instance;
-	private List<Class<? extends Runnable>> ihm;
+	private List<Runnable> ihm;
 	private InterfaceIA classifierAI;
-	
+	private List<Thread> threads;
 	
 	public Core() {
 		initFile = "init";
-		ihm = new ArrayList<Class<? extends Runnable>>();
+		ihm = new ArrayList<Runnable>();
+		threads = new ArrayList<Thread>();
 		
 	}
 
@@ -36,39 +37,56 @@ public class Core implements ICore {
 	//Cette fonction initialise la liste des components, puis charge dans l'ordre les components précisés
 	@Override
 	public void init() {
+		//List<Class<?>> loadedComponents = getComponentsFromFile(initFile); <= give up on the init file. Use the data base instead
+		List<Class<?>> loadedComponents = new ArrayList<Class<?>>();
 		try {
-			List<Class<?>> loadedComponents = getComponentsFromFile(initFile);
-		
-		for(Class<?> c : loadedComponents){
-			try {
-				if(aiCheck(c) && this.classifierAI == null){
-					//TODO: Code sale, peut-on faire autrement qu'un cast ???
-					this.classifierAI = (InterfaceIA) c.newInstance();
-				}
-				else if(runnableCheck(c)){
-					//TODO: Code sale, peut-on faire autrement qu'un cast ???
-					this.ihm.add((Class<? extends Runnable>) c);
-				}
-				else{
-					throw new UnknownComponentTypeException();
-				}
-				
-			} catch (UnknownComponentTypeException e) {
-				System.err.println("Le CoreComponent : " + c.toString() + "n'a pas pu être lancé");
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
+			loadedComponents.add(Class.forName("ia.IaWatson"));
+			loadedComponents.add(Class.forName("mail.AttenteMail"));
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+
+for(Class<?> c : loadedComponents){
+		try {
+			if(aiCheck(c) && this.classifierAI == null){
+				//TODO: Code sale, peut-on faire autrement qu'un cast ???
+				this.classifierAI = (InterfaceIA) c.newInstance();
+			}
+			else if(runnableCheck(c)){
+				//TODO: Code sale, peut-on faire autrement qu'un cast ???
+				Thread t = new Thread((Runnable) c.getConstructor(ICore.class).newInstance(this));
+				threads.add(t);
+			}
+			else{
+				throw new UnknownComponentTypeException();
+			}
+			
+		} catch (UnknownComponentTypeException e) {
+			System.err.println("Le CoreComponent : " + c.toString() + "n'a pas pu être lancé");
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+}
+		
 }
 	
 	private boolean aiCheck(Class<?> c){
@@ -119,15 +137,13 @@ public class Core implements ICore {
 
 
 	@Override
-	//Démarre les Runnable donnés dans le fichier init
-	public void launch() {
-		for(Class<? extends Runnable> c : ihm){
+	//Démarre les Runnable (services) puis sauvegarde les threads correspondant pour pouvoir les interrompre
+	public void fullLaunch() {
+		for(Thread t : threads){
 			try {
-				System.out.println("on lance un thread avec " + c);
-				new Thread(c.getConstructor(ICore.class).newInstance(this)).start();
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-				System.err.println("impossible d'instancier l'ihm : " + c.getName());
+				t.start();
+			} catch (IllegalArgumentException | SecurityException e) {
+				
 				e.printStackTrace();
 			}
 		}
@@ -136,11 +152,18 @@ public class Core implements ICore {
 
 	@Override
 	public String toString(){
-		String r = "IA : "+ classifierAI +"\nIHM : ";
-		for(Class<? extends Runnable> c : ihm){
-			r += "\n" + c.getName();
+		String res = "IA : "+ classifierAI.getClass() +"\nIHM : ";
+		for(Runnable r : ihm){
+			res += "\n" + r.getClass().getName();
 		}
-		return r;
+		return res;
+	}
+	
+	@Override
+	public void fullStop(){
+		for(Thread t : threads){
+			t.interrupt();
+		}
 	}
 	
 	
