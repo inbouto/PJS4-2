@@ -9,15 +9,20 @@ import javax.mail.internet.*;
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
+
+import core.ICore;
 public class AttenteMail implements Runnable{
 
-	private static String USER_NAME = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
-    private static String PASSWORD = "fgVFunR3Z94ueFnE"; // GMail password
-    private static String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
-
+	private  String USER_NAME = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
+    private  String PASSWORD = "fgVFunR3Z94ueFnE"; // GMail password
+    private  String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
+    private ICore core;
     
+    public AttenteMail(ICore core){
+    	this.core = core;
+    }
 
-    private static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
+    private  void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -58,7 +63,7 @@ public class AttenteMail implements Runnable{
         }
     }
     
-    public static void incomingMail(){
+    public  void incomingMail(){
     	Properties properties = new Properties();
         // properties.put("mail.debug", "true");
         properties.put("mail.store.protocol", "imaps");
@@ -112,7 +117,7 @@ public class AttenteMail implements Runnable{
         }
     }
     
-    public static void close(final Folder folder) {
+    public  void close(final Folder folder) {
         try {
             if (folder != null && folder.isOpen()) {
                 folder.close(false);
@@ -123,7 +128,7 @@ public class AttenteMail implements Runnable{
 
     }
     
-    public static void close(final Store store) {
+    public  void close(final Store store) {
         try {
             if (store != null && store.isConnected()) {
                 store.close();
@@ -134,7 +139,7 @@ public class AttenteMail implements Runnable{
 
     }
 
-    public static void creerReponse(Message message) throws MessagingException, IOException{
+    public  void creerReponse(Message message) throws MessagingException, IOException{
     	System.out.println("get in rcreerreponse");
     	System.out.println(message.getFrom());
     	Address[] expediteurs = message.getFrom();
@@ -143,19 +148,20 @@ public class AttenteMail implements Runnable{
     		adresses[i]=expediteurs[i].toString();
     	}
     	String subject = setSubject(message.getSubject());
-    	String body = createBody(message.getContent());
+    	String body = createBody(getTextFromMessage(message));
     	sendFromGMail(USER_NAME, PASSWORD, adresses, subject, body);
     }
     
-    private static String createBody(Object content) {
-		return "Réponse !!";
+    private String createBody(String content) {
+    	System.out.println(content);
+		return this.core.askAI(content);
 	}
 
-	public static String setSubject(String s){
+	public  String setSubject(String s){
     	return "Reponse  :  " + s;
     }
 	
-	 public static void ensureOpen(final Folder folder) throws MessagingException {
+	 public  void ensureOpen(final Folder folder) throws MessagingException {
 
 	        if (folder != null) {
 	            Store store = folder.getStore();
@@ -186,5 +192,36 @@ public class AttenteMail implements Runnable{
 	        //sendFromGMail(from, pass, to, subject, body);
 	        incomingMail();
 		
+	}
+	
+	
+	private String getTextFromMessage(Message message) throws MessagingException, IOException {
+	    String result = "";
+	    if (message.isMimeType("text/plain")) {
+	        result = message.getContent().toString();
+	    } else if (message.isMimeType("multipart/*")) {
+	        MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
+	        result = getTextFromMimeMultipart(mimeMultipart);
+	    }
+	    return result;
+	}
+
+	private String getTextFromMimeMultipart(
+	        MimeMultipart mimeMultipart)  throws MessagingException, IOException{
+	    String result = "";
+	    int count = mimeMultipart.getCount();
+	    for (int i = 0; i < count; i++) {
+	        BodyPart bodyPart = mimeMultipart.getBodyPart(i);
+	        if (bodyPart.isMimeType("text/plain")) {
+	            result = result + "\n" + bodyPart.getContent();
+	            break; // without break same text appears twice in my tests
+	        } else if (bodyPart.isMimeType("text/html")) {
+	            String html = (String) bodyPart.getContent();
+	            result = result + "\n" + org.jsoup.Jsoup.parse(html).text();
+	        } else if (bodyPart.getContent() instanceof MimeMultipart){
+	            result = result + getTextFromMimeMultipart((MimeMultipart)bodyPart.getContent());
+	        }
+	    }
+	    return result;
 	}
 }
