@@ -6,10 +6,10 @@ import core.Core;
 
 public class IHM_Implementation implements Runnable {
 	
-	private Core Core;
+	private static ICore core;
 
-	public IHM_Implementation (Core core) {
-		this.Core = core;
+	public IHM_Implementation (ICore core) {
+		this.core = core;
 	}
 	
 	@Override
@@ -19,6 +19,10 @@ public class IHM_Implementation implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	public static ICore getCore() {
+		return core;
 	}
 	
 }
