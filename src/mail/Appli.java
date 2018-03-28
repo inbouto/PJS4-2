@@ -92,13 +92,11 @@ public class Appli implements Runnable{
 
                     for (Message message : messages) {
                         try {
-                        	System.out.println("Mail Subject:- " + message.getSubject());
 							creerReponse(message);
 						} catch (MessagingException | IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-                        //System.out.println("Mail Subject:- " + message.getSubject());
                     }
                 }
             });

@@ -91,7 +91,6 @@ public class AttenteMail implements Runnable{
 
                     for (Message message : messages) {
                         try {
-                        	System.out.println("Mail Subject:- " + message.getSubject());
 							creerReponse(message);
 						} catch (MessagingException | IOException e) {
 							// TODO Auto-generated catch block
@@ -140,8 +139,6 @@ public class AttenteMail implements Runnable{
     }
 
     public  void creerReponse(Message message) throws MessagingException, IOException{
-    	System.out.println("get in rcreerreponse");
-    	System.out.println(message.getFrom());
     	Address[] expediteurs = message.getFrom();
     	String[] adresses = new String[expediteurs.length];
     	for (int i=0; i<expediteurs.length; i++){
@@ -153,7 +150,6 @@ public class AttenteMail implements Runnable{
     }
     
     private String createBody(String content) {
-    	System.out.println(content);
 		return this.core.askAI(content);
 	}
 
