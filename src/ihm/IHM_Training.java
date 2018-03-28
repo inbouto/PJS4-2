@@ -9,14 +9,20 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import core.ICore;
+
 
 public class IHM_Training extends JFrame implements ActionListener {
+	private ICore core;
+	
     JLabel result;
     String currentClasse;
 	private JButton boutonRetourMenu;
 	private JButton boutonQuitter;
  
-    public IHM_Training() throws IOException {
+    public IHM_Training(ICore core) throws IOException {
+    	this.core = core;
+    	
     	this.setTitle("TechBot Training");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setUndecorated(true);
@@ -189,7 +195,7 @@ public class IHM_Training extends JFrame implements ActionListener {
     	if (e.getSource() == boutonRetourMenu) {
     		this.dispose();
 			try {
-				new IHM_Menu();
+				new IHM_Menu(core);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -206,7 +212,7 @@ public class IHM_Training extends JFrame implements ActionListener {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 				try {
-					new IHM_Training();
+					new IHM_Training(null);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

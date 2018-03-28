@@ -24,13 +24,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import core.ICore;
+
 public class IHM_Menu extends JFrame implements ActionListener {
+	private ICore core;
 	
 	private JButton boutonApplication; 
 	private JButton boutonEntrainement;
 	private JButton boutonQuitter;
 
-	public IHM_Menu() throws IOException {
+	public IHM_Menu(ICore core) throws IOException {
+		this.core = core;
+		
     	this.setTitle("TechBot Menu");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setUndecorated(true);
@@ -135,14 +140,14 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		this.dispose();
 		if (e.getSource() == boutonApplication) {
 			try {
-				new IHM_TempsReel();
+				new IHM_TempsReel(core);
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
 		}
 		else if (e.getSource() == boutonEntrainement) {
 			try {
-				new IHM_Training();
+				new IHM_Training(core);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -156,7 +161,7 @@ public class IHM_Menu extends JFrame implements ActionListener {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
-					new IHM_Menu();
+					new IHM_Menu(null);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
