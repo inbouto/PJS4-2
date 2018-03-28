@@ -2,14 +2,14 @@ package ihm;
 
 import java.io.IOException;
 
-import core.Core;
+import core.ICore;
 
 public class IHM_Implementation implements Runnable {
 	
-	private static ICore core;
+	private ICore Core;
 
 	public IHM_Implementation (ICore core) {
-		this.core = core;
+		this.Core = core;
 	}
 	
 	@Override
