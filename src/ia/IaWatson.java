@@ -1,4 +1,4 @@
-package WatsonIA;
+package ia;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,12 +10,24 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.GetClassifierOptions;
 
-import ia.NaturalLanguageClassifier;
+import core.InterfaceIA;
 
-public class Main {
+public class IaWatson implements InterfaceIA{
 	
-	public static String AMA(NaturalLanguageClassifier service, String phrase){
-		
+	private String username;
+	private String password;
+	private String url;
+	private NaturalLanguageClassifier service;
+	
+	public IaWatson() {
+		username = "e88c4313-d9a2-445c-8246-29168c3ef6a6";
+		password = "6QMUX5QdO6vm";
+		url = "https://gateway.watsonplatform.net/natural-language-classifier/api";
+		service = new NaturalLanguageClassifier(username,password);
+	}
+	
+	@Override
+	public String genererReponse(String question) {
 		String classifierId = "";
 		
 		ClassifierList list = service.listClassifiers().execute();
@@ -36,13 +48,15 @@ public class Main {
 		
 		ClassifyOptions options = new ClassifyOptions.Builder()
 				.classifierId(classifierId)
-				.text(phrase)
+				.text(question)
 				.build();
 		Classification result = service.classify(options).execute();
-		return result.getText() + result.getTopClass();
+		return result.getTopClass();
 	}
 	
-	public static String createAndTrain(NaturalLanguageClassifier service,String pathTrainingFile, String pathMetadataFile) throws FileNotFoundException{
+	
+	//renvoie l'id du classifier
+	public String createAndTrain(NaturalLanguageClassifier service,String pathTrainingFile, String pathMetadataFile) throws FileNotFoundException{
 		File trainingData = new File(pathTrainingFile);
 		File metaData = new File(pathMetadataFile);
 		CreateClassifierOptions options = new CreateClassifierOptions.Builder()
@@ -53,30 +67,5 @@ public class Main {
 		return response.getClassifierId();
 	}
 	
-	
-	
-	public static void main(String[] args) {
-		String username = "e88c4313-d9a2-445c-8246-29168c3ef6a6";
-		String password = "6QMUX5QdO6vm";
-		String url = "https://gateway.watsonplatform.net/natural-language-classifier/api";
-		
-		
-		
-		NaturalLanguageClassifier service = new NaturalLanguageClassifier(username,password);
-		//classifier.setEndPoint(url);
-		
-		
-		
-//		String pathTrainingFile = "./ressources/weather_data_train.csv";
-//		String pathMetadataFile = "./ressources/metadata.json";
-//		try {
-//			String classifierId = createAndTrain(service, pathTrainingFile, pathMetadataFile);
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		System.out.println(AMA(service,"how hot is it"));
-		
-	}
 }
+
