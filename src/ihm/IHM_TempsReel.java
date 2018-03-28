@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import core.InterfaceIHM_Utilisation;
  
 public class IHM_TempsReel extends JFrame implements ActionListener {
 	
