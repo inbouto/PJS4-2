@@ -202,6 +202,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	        zoneDeSaisie.selectAll();        
 	        texteUser.setCaretPosition(texteUser.getDocument().getLength());
 	       
+	        reponse(saisie());
 	        texteIA.append(reponse + newline);
 	        texteIA.setCaretPosition(texteUser.getDocument().getLength());
 	        
@@ -212,8 +213,8 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 		return zoneDeSaisie.getText();
 	}
 
-	public void affichage(String param) {
-		this.reponse = param;
+	public void reponse(String texteReponse) {
+		this.reponse = IHM_Implementation.getCore().askIA(texteReponse);
 	}
  
     public static void main(String[] args) {

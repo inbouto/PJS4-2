@@ -21,4 +21,8 @@ public class IHM_Implementation implements Runnable {
 		}		
 	}
 	
+	public static ICore getCore() {
+		return core;
+	}
+	
 }
