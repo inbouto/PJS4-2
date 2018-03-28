@@ -14,13 +14,19 @@ public class Core implements ICore {
 
 	static{
 		instance = new Core();
-		initFile = "init";
+		
 	}
-	private final static String initFile;
+	private final String initFile;
 	private static Core instance;
 	private List<Class<? extends Runnable>> ihm;
 	private InterfaceIA classifierAI;
 	
+	
+	public Core() {
+		initFile = "init";
+		ihm = new ArrayList<Class<? extends Runnable>>();
+		
+	}
 
 	//WARNING : N'EST PAS THREAD-SAFE !!!!!
 	
@@ -117,7 +123,8 @@ public class Core implements ICore {
 	public void launch() {
 		for(Class<? extends Runnable> c : ihm){
 			try {
-				new Thread(c.getConstructor(ICore.class).newInstance(this));
+				System.out.println("on lance un thread avec " + c);
+				new Thread(c.getConstructor(ICore.class).newInstance(this)).start();
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				System.err.println("impossible d'instancier l'ihm : " + c.getName());
@@ -127,8 +134,14 @@ public class Core implements ICore {
 		
 	}
 
-	
-
+	@Override
+	public String toString(){
+		String r = "IA : "+ classifierAI +"\nIHM : ";
+		for(Class<? extends Runnable> c : ihm){
+			r += "\n" + c.getName();
+		}
+		return r;
+	}
 	
 	
 	
