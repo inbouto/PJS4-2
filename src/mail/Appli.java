@@ -10,6 +10,8 @@ import javax.mail.internet.*;
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
+
+import coreComponents.Core;
 public class Appli implements Runnable{
 
 	private static String USER_NAME = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
@@ -17,7 +19,7 @@ public class Appli implements Runnable{
     private static String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
 
     public static void main(String[] args) {
-    	new Thread(new AttenteMail()).start();
+    	new Thread(new AttenteMail(new Core())).start();
      
     }
 
