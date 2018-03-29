@@ -101,21 +101,28 @@ public class AttenteMail implements Runnable{
                     }
                 }
             });
-            ThreadAttente idleThread = new ThreadAttente(inbox);
-            //idleThread.setDaemon(false);
-            //TODO : j'aimerais comprendre c'est quoi ce setDeamon ?
-            idleThread.start();
+            
 
-            idleThread.join();
-            // idleThread.kill(); //to terminate from another thread
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-
+        
+        } catch (MessagingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+        ThreadAttente idleThread = new ThreadAttente(inbox);
+        idleThread.setDaemon(false);
+        //TODO : j'aimerais comprendre c'est quoi ce setDeamon ?
+        idleThread.start();
+        try {
+				idleThread.join();
+		} catch (InterruptedException e) {
+			idleThread.kill();
+			System.err.println("Stopping the mailing thread");
+		}
+        //idleThread.kill(); //to terminate from another thread
+        finally {
             close(inbox);
             close(store);
-        }
+        }  
     }
     
     public  void close(final Folder folder) {
@@ -128,6 +135,8 @@ public class AttenteMail implements Runnable{
         }
 
     }
+    
+    
     
     public  void close(final Store store) {
         try {

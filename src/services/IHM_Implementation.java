@@ -1,4 +1,4 @@
-package ihm;
+package services;
 
 import java.io.IOException;
 

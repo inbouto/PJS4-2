@@ -8,8 +8,8 @@ public interface ICore {
 	public String askAI(String s);
 	
 	public void fullLaunch();
-	
-	public void fullStop();
+
+	public void fullReset();
 	
 	
 }

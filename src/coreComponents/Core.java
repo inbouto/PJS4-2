@@ -5,7 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import core.ICore;
 import core.InterfaceIA;
@@ -18,14 +20,14 @@ public class Core implements ICore {
 	}
 	private final String initFile;
 	private static Core instance;
-	private List<Runnable> ihm;
+	private List<Runnable> services;
 	private InterfaceIA classifierAI;
 	private List<Thread> threads;
 	
 	public Core() {
 		initFile = "init";
-		ihm = new ArrayList<Runnable>();
-		threads = new ArrayList<Thread>();
+		services = new Vector<Runnable>();
+		threads = new Vector<Thread>();
 		
 	}
 
@@ -49,20 +51,19 @@ public class Core implements ICore {
 
 for(Class<?> c : loadedComponents){
 		try {
-			if(aiCheck(c) && this.classifierAI == null){
+			if(aiCheck(c)){
 				//TODO: Code sale, peut-on faire autrement qu'un cast ???
 				this.classifierAI = (InterfaceIA) c.newInstance();
 			}
-			else if(runnableCheck(c)){
+			else if(serviceCheck(c)){
 				//TODO: Code sale, peut-on faire autrement qu'un cast ???
-				Thread t = new Thread((Runnable) c.getConstructor(ICore.class).newInstance(this));
-				threads.add(t);
+				services.add((Runnable) c.getConstructor(ICore.class).newInstance(this));
 			}
 			else{
-				throw new UnknownComponentTypeException();
+				throw new IllegalComponentException();
 			}
 			
-		} catch (UnknownComponentTypeException e) {
+		} catch (IllegalComponentException e) {
 			System.err.println("Le CoreComponent : " + c.toString() + "n'a pas pu être lancé");
 			e.printStackTrace();
 		} catch (InstantiationException e) {
@@ -85,16 +86,22 @@ for(Class<?> c : loadedComponents){
 			e.printStackTrace();
 		}
 
-}
+	}
 		
 }
+	public void fullReset(){
+		allServicesStop();
+		services.clear();
+		classifierAI = null;
+		threads.clear();
+	}
 	
 	private boolean aiCheck(Class<?> c){
 		return InterfaceIA.class.isAssignableFrom(c);
 	}
 	
 	//vérifie si la classe passée en argument est runnable et si elle a un constructeur public content un argument de type ICore
-	private boolean runnableCheck(Class<?> c) {
+	private boolean serviceCheck(Class<?> c) {
 		try {
 			return Runnable.class.isAssignableFrom(c) && c.getConstructor(ICore.class) != null;
 		} catch (NoSuchMethodException e) {
@@ -139,8 +146,10 @@ for(Class<?> c : loadedComponents){
 	@Override
 	//Démarre les Runnable (services) puis sauvegarde les threads correspondant pour pouvoir les interrompre
 	public void fullLaunch() {
-		for(Thread t : threads){
+		for(Runnable r : services){
 			try {
+				Thread t = new Thread(r);
+				threads.add(t);
 				t.start();
 			} catch (IllegalArgumentException | SecurityException e) {
 				
@@ -153,16 +162,17 @@ for(Class<?> c : loadedComponents){
 	@Override
 	public String toString(){
 		String res = "IA : "+ classifierAI.getClass() +"\nIHM : ";
-		for(Runnable r : ihm){
+		for(Runnable r : services){
 			res += "\n" + r.getClass().getName();
 		}
 		return res;
 	}
 	
-	@Override
-	public void fullStop(){
-		for(Thread t : threads){
-			t.interrupt();
+	
+	public void allServicesStop(){
+		for(Iterator<Thread> i = threads.iterator(); i.hasNext();){
+			i.next().interrupt();
+			i.remove();
 		}
 	}
 	
