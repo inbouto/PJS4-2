@@ -6,9 +6,11 @@ import com.sun.mail.imap.IMAPFolder;
 public class ThreadAttente extends Thread{
 	private final Folder folder;
     private volatile boolean running = true;
+    private AttenteMail serviceAppelant;
 
-    public ThreadAttente(Folder folder) {
-        super();
+    public ThreadAttente(Folder folder, AttenteMail a) {
+    	super();
+    	serviceAppelant = a;
         this.folder = folder;
     }
 
@@ -26,7 +28,7 @@ public class ThreadAttente extends Thread{
         while (running) {
 
             try {
-                Appli.ensureOpen(folder);
+                serviceAppelant.ensureOpen(folder);
                 System.out.println("enter idle");
                 System.out.println(folder.getFullName());
                 ((IMAPFolder) folder).idle();

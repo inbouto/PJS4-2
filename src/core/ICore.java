@@ -11,5 +11,7 @@ public interface ICore {
 
 	public void fullReset();
 	
+	public Boolean isAnyServiceRunning();
+	
 	
 }

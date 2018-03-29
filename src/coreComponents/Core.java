@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Vector;
 
 import core.ICore;
+import core.IService;
 import core.InterfaceIA;
 
 public class Core implements ICore {
@@ -20,13 +21,13 @@ public class Core implements ICore {
 	}
 	private final String initFile;
 	private static Core instance;
-	private List<Runnable> services;
+	private List<IService> services;
 	private InterfaceIA classifierAI;
 	private List<Thread> threads;
 	
 	public Core() {
 		initFile = "init";
-		services = new Vector<Runnable>();
+		services = new Vector<IService>();
 		threads = new Vector<Thread>();
 		
 	}
@@ -57,7 +58,7 @@ for(Class<?> c : loadedComponents){
 			}
 			else if(serviceCheck(c)){
 				//TODO: Code sale, peut-on faire autrement qu'un cast ???
-				services.add((Runnable) c.getConstructor(ICore.class).newInstance(this));
+				services.add((IService) c.getConstructor(ICore.class).newInstance(this));
 			}
 			else{
 				throw new IllegalComponentException();
@@ -103,7 +104,7 @@ for(Class<?> c : loadedComponents){
 	//vérifie si la classe passée en argument est runnable et si elle a un constructeur public content un argument de type ICore
 	private boolean serviceCheck(Class<?> c) {
 		try {
-			return Runnable.class.isAssignableFrom(c) && c.getConstructor(ICore.class) != null;
+			return IService.class.isAssignableFrom(c) && c.getConstructor(ICore.class) != null;
 		} catch (NoSuchMethodException e) {
 			System.err.println("pas de constructeur publique avec ICore en argument");
 		} catch (SecurityException e) {
@@ -170,10 +171,22 @@ for(Class<?> c : loadedComponents){
 	
 	
 	public void allServicesStop(){
+		for(IService s : services){
+			s.kill();
+		}
 		for(Iterator<Thread> i = threads.iterator(); i.hasNext();){
 			i.next().interrupt();
 			i.remove();
 		}
+	}
+
+	@Override
+	public Boolean isAnyServiceRunning() {
+		for(IService s : services){
+			if(s.isRunning())
+				return true;
+		}
+		return false;
 	}
 	
 	

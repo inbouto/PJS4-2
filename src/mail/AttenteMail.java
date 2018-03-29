@@ -11,12 +11,13 @@ import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 import core.ICore;
-public class AttenteMail implements Runnable{
+import core.IService;
+public class AttenteMail implements IService{
 
 	private  String USER_NAME = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
     private  String PASSWORD = "fgVFunR3Z94ueFnE"; // GMail password
-    private  String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
     private ICore core;
+	private ThreadAttente idleThread;
     
     public AttenteMail(ICore core){
     	this.core = core;
@@ -108,7 +109,7 @@ public class AttenteMail implements Runnable{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
-        ThreadAttente idleThread = new ThreadAttente(inbox);
+        idleThread = new ThreadAttente(inbox);
         idleThread.setDaemon(false);
         //TODO : j'aimerais comprendre c'est quoi ce setDeamon ?
         idleThread.start();
@@ -116,6 +117,8 @@ public class AttenteMail implements Runnable{
 				idleThread.join();
 		} catch (InterruptedException e) {
 			idleThread.kill();
+			
+			
 			System.err.println("Stopping the mailing thread");
 		}
         //idleThread.kill(); //to terminate from another thread
@@ -171,8 +174,10 @@ public class AttenteMail implements Runnable{
     	return "Reponse  :  " + s;
     }
 	
-	 public  void ensureOpen(final Folder folder) throws MessagingException {
+	 public void ensureOpen(final Folder folder) throws MessagingException {
 
+		 
+		 
 	        if (folder != null) {
 	            Store store = folder.getStore();
 	            if (store != null && !store.isConnected()) {
@@ -193,11 +198,7 @@ public class AttenteMail implements Runnable{
 
 	@Override
 	public void run() {
-		 String from = USER_NAME;
-	        String pass = PASSWORD;
-	        String[] to = { RECIPIENT }; // list of recipient email addresses
-	        String subject = "Petit Test ;)";
-	        String body = "Welcome to JavaMail!";  
+		 
 	        
 	        //sendFromGMail(from, pass, to, subject, body);
 	        incomingMail();
@@ -234,4 +235,23 @@ public class AttenteMail implements Runnable{
 	    }
 	    return result;
 	}
+	
+	public void kill(){
+		idleThread.kill();
+		try {
+			idleThread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Boolean isRunning() { 
+		//TODO : A COMPLETER
+		if(idleThread == null)
+			return false;
+		return idleThread.isAlive();
+	}
+	
 }
