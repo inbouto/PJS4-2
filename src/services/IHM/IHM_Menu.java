@@ -1,4 +1,4 @@
-package services;
+package services.IHM;
 
 import java.awt.Color;
 import java.awt.Component;

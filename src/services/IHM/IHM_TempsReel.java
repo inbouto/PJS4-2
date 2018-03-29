@@ -1,4 +1,4 @@
-package services;
+package services.IHM;
 
 import java.awt.*;
 import java.awt.event.*;

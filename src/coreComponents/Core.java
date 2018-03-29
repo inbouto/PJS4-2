@@ -29,7 +29,7 @@ public class Core implements ICore {
 		initFile = "init";
 		services = new Vector<IService>();
 		threads = new Vector<Thread>();
-		
+		init();
 	}
 
 	//WARNING : N'EST PAS THREAD-SAFE !!!!!
@@ -44,7 +44,7 @@ public class Core implements ICore {
 		List<Class<?>> loadedComponents = new ArrayList<Class<?>>();
 		try {
 			loadedComponents.add(Class.forName("ia.IaWatson"));
-			loadedComponents.add(Class.forName("mail.AttenteMail"));
+			loadedComponents.add(Class.forName("services.mail.AttenteMail"));
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -147,7 +147,7 @@ for(Class<?> c : loadedComponents){
 	@Override
 	//Démarre les Runnable (services) puis sauvegarde les threads correspondant pour pouvoir les interrompre
 	public void fullLaunch() {
-		for(Runnable r : services){
+		for(IService r : services){
 			try {
 				Thread t = new Thread(r);
 				threads.add(t);
@@ -187,6 +187,43 @@ for(Class<?> c : loadedComponents){
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Boolean isRunning(String name) {
+		for(IService s : services){
+			if(s.getName().toLowerCase().equals(name.toLowerCase()))
+				if(s.isRunning())
+					return true;
+		}
+		return false;
+		
+	}
+
+	@Override
+	public List<String> getServicesNames() {
+		List<String> r = new Vector<String>();
+		r.add("email");
+		r.add("IHM");
+		return r;
+	}
+
+	@Override
+	public void startService(String name) {
+		for(IService s : services){
+			if(s.getName().toLowerCase().equals(name.toLowerCase())){
+				Thread t = new Thread(s);
+				threads.add(t);
+				t.start();
+			}
+		}
+		
+	}
+
+	@Override
+	public void stopService(String name) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -1,4 +1,4 @@
-package mail;
+package services.mail;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -109,7 +109,7 @@ public class AttenteMail implements IService{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
-        idleThread = new ThreadAttente(inbox);
+        idleThread = new ThreadAttente(inbox, this);
         idleThread.setDaemon(false);
         //TODO : j'aimerais comprendre c'est quoi ce setDeamon ?
         idleThread.start();
@@ -238,12 +238,7 @@ public class AttenteMail implements IService{
 	
 	public void kill(){
 		idleThread.kill();
-		try {
-			idleThread.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		idleThread.interrupt();
 	}
 
 	@Override
@@ -253,5 +248,12 @@ public class AttenteMail implements IService{
 			return false;
 		return idleThread.isAlive();
 	}
+
+	@Override
+	public String getName() {
+		return "email";
+	}
+
+	
 	
 }

@@ -1,8 +1,10 @@
 package appli;
 
+import java.util.List;
+
 import core.ICore;
 import coreComponents.Core;
-import services.IHM_Implementation;
+import services.IHM.IHM_Implementation;
 
 public class Application {
 
@@ -15,7 +17,6 @@ public class Application {
 		
 		core.fullReset();
 		core.init();
-		System.out.println(core);
 		core.fullLaunch();
 	}
 	
@@ -23,7 +24,24 @@ public class Application {
 		Core.getInstance().fullReset();
 	}
 	
+	public static Boolean isAnythingRunning(){
+		return Core.getInstance().isAnyServiceRunning();
+	}
 	
+	public static Boolean isServiceRunning(String name){
+		return Core.getInstance().isRunning(name);
+	}
 	
-
+	public static List<String> getServicesNames(){
+		return Core.getInstance().getServicesNames();
+	}
+	
+	public static void startService(String name){
+		Core.getInstance().startService(name);
+	}
+	
+	public static void stopService(String name){
+		Core.getInstance().stopService(name);
+	}
+	
 }

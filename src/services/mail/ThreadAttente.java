@@ -1,4 +1,4 @@
-package mail;
+package services.mail;
 import javax.mail.Folder;
 
 import com.sun.mail.imap.IMAPFolder;
