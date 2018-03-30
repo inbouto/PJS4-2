@@ -21,6 +21,8 @@ public interface ICore {
 	void launch();
 	
 	public String getClasseService(int SERVICE_ID);
+
+	public void startService(int service_id);
 	
 	
 }

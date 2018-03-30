@@ -12,7 +12,7 @@ public class Main {
 		
 		core.init();
 		
-		core.launch();
+		core.startService(3);
 
 	}
 

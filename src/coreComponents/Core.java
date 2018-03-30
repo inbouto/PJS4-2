@@ -12,7 +12,8 @@ import core.ICore;
 import core.IDonnees;
 import core.InterfaceIA;
 import core.Service;
-import donnees.Donnees;
+import donnees.DonneesMySql;
+import donnees.DonneesOracle;
 
 public class Core implements ICore {
 
@@ -64,7 +65,7 @@ public class Core implements ICore {
 			}
 			
 			//TODO : charger dynamiquement comme le reste
-			donnees = new Donnees(this);
+			donnees = new DonneesMySql(this);
 		
 		}
 	} catch (IOException e1) {
@@ -135,23 +136,12 @@ public class Core implements ICore {
 	//Démarre les Runnable donnés dans le fichier init
 	public void launch() {
 		for(Integer i : donnees.getServices()){
-			try {
-				for(Class<? extends Service> c : ihm){
-					if(c.getName().equals(donnees.getClasseService(i))){
-						System.out.println("on lance un thread avec " + c);
-						Thread t = new Thread(c.getConstructor(ICore.class, int.class).newInstance(this, i));
-						t.start();
-					}
-				}
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-				System.err.println("impossible d'instancier le service : " + i);
-				e.printStackTrace();
+				startService(i);
 			}
 		}
 		
 		
-	}
+	
 
 	@Override
 	public String toString(){
@@ -188,9 +178,31 @@ public class Core implements ICore {
 		return donnees.getClasseService(SERVICE_ID);
 	}
 
+	@Override
+	public void startService(int service_id) {
+		for(Class<? extends Service> c : ihm){
+			if(c.getName().equals(donnees.getClasseService(service_id))){
+				System.out.println("on lance un thread avec " + c);
+				
+				try {
+					Thread t;
+					t = new Thread(c.getConstructor(ICore.class, int.class).newInstance(this, service_id));
+					t.start();
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+					System.err.println("impossible d'instancier le service : " + c.getName());
+					e.printStackTrace();
+				}
+				
+			}
+		}
+	}
+	
+
 	
 	
 	
 	
 	
+
 }

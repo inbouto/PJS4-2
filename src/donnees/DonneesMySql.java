@@ -10,7 +10,7 @@ import core.IDonnees;
 import core.InterfaceIA;
 import ia.IaWatson;
 
-public class Donnees implements IDonnees{
+public class DonneesMySql implements IDonnees{
 	
 	private Connection c;
 	private ICore core;
@@ -19,11 +19,11 @@ public class Donnees implements IDonnees{
 		
 	}
 	
-	public Donnees(ICore core){
+	public DonneesMySql(ICore core){
 		this.core = core;
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			this.c = DriverManager.getConnection("jdbc:oracle:thin:@vs-oracle2:1521:ORCL","GRP201US4","GRP201US4");
+			Class.forName("com.mysql.jdbc.Driver");
+			this.c = DriverManager.getConnection("jdbc:mysql://localhost/techbot?user=techbot_run&password=evVkGpsK6yQK9z4X");
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -39,6 +39,7 @@ public class Donnees implements IDonnees{
 			statement = c.prepareStatement("SELECT mdp FROM service where idservice = ?");
 		
 		statement.setInt(1, SERVICE_ID);
+		System.out.println(SERVICE_ID);
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
 			System.out.println("Erreur requête");

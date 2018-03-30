@@ -42,6 +42,7 @@ public class IaWatson implements InterfaceIA{
 				.text(question)
 				.build();
 		Classification result = service.classify(options).execute();
+		
 		String phrase = core.getPhraseFromClass(result.getTopClass());
 		return phrase;
 	}
