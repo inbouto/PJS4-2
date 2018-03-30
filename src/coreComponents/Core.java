@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import core.ICore;
+import core.IDonnees;
 import core.InterfaceIA;
 
 public class Core implements ICore {
@@ -20,6 +22,7 @@ public class Core implements ICore {
 	private static Core instance;
 	private List<Class<? extends Runnable>> ihm;
 	private InterfaceIA classifierAI;
+	private IDonnees donnees;
 	
 	
 	public Core() {
@@ -109,8 +112,8 @@ public class Core implements ICore {
 	
 
 	@Override
-	public String askAI(String s) {
-		return this.classifierAI.genererReponse(s);
+	public String askAI(String s, String IDAI) {
+		return donnees.getAI(IDAI).genererReponse(s);
 	}
 
 	public static ICore getInstance() {
@@ -142,6 +145,18 @@ public class Core implements ICore {
 			r += "\n" + c.getName();
 		}
 		return r;
+	}
+
+	@Override
+	public String getPassword(String SERVICE_ID) throws SQLException {
+		// TODO Auto-generated method stub
+		return donnees.getPassword(SERVICE_ID);
+	}
+
+	@Override
+	public String getUsername(String SERVICE_ID) throws SQLException {
+		// TODO Auto-generated method stub
+		return donnees.getUsername(SERVICE_ID);
 	}
 
 	

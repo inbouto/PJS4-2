@@ -1,5 +1,6 @@
 package mail;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.mail.*;
@@ -15,16 +16,16 @@ public class AttenteMail implements Runnable{
 
 	private  String username = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
     private  String password = "fgVFunR3Z94ueFnE"; // GMail password
-    private final int SERVICE_ID;
+    private final String AI_ID;
     private  String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
     private ICore core;
     
-    public AttenteMail(ICore core, int serviceId){
-    	this.SERVICE_ID = serviceId;
+    public AttenteMail(ICore core, String AIid) throws SQLException{
+    	this.AI_ID = AIid;
     	this.core = core;
-    	this.username = core.getUsername(SERVICE_ID);
+    	this.username = core.getUsername(AI_ID);
     	System.out.println("cc" +username);
-    	this.password = core.getPassword(SERVICE_ID);
+    	this.password = core.getPassword(AI_ID);
     	System.out.println(password);
     }
 
@@ -156,7 +157,7 @@ public class AttenteMail implements Runnable{
     }
     
     private String createBody(String content) {
-		return this.core.askAI(content);
+		return this.core.askAI(content, content);
 	}
 
 	public  String setSubject(String s){
