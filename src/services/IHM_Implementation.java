@@ -7,15 +7,19 @@ import core.ICore;
 public class IHM_Implementation implements Runnable {
 	
 	private ICore core;
+	private String AIid;
+	
+	private String IdService;
 
-	public IHM_Implementation (ICore core) {
+	public IHM_Implementation (ICore core, String AIid) {
 		this.core = core;
+		this.AIid = AIid;
 	}
 	
 	@Override
 	public void run() {
 		try {
-			new IHM_Menu(core);
+			new IHM_Menu(core, AIid);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		

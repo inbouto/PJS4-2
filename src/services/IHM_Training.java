@@ -14,14 +14,16 @@ import core.ICore;
 
 public class IHM_Training extends JFrame implements ActionListener {
 	private ICore core;
+	private String AIid;
 	
     JLabel result;
     String currentClasse;
 	private JButton boutonRetourMenu;
 	private JButton boutonQuitter;
  
-    public IHM_Training(ICore core) throws IOException {
+    public IHM_Training(ICore core, String AIid) throws IOException {
     	this.core = core;
+    	this.AIid = AIid;
     	
     	this.setTitle("TechBot Training");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -195,7 +197,7 @@ public class IHM_Training extends JFrame implements ActionListener {
     	if (e.getSource() == boutonRetourMenu) {
     		this.dispose();
 			try {
-				new IHM_Menu(core);
+				new IHM_Menu(core, AIid);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -212,7 +214,7 @@ public class IHM_Training extends JFrame implements ActionListener {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 				try {
-					new IHM_Training(null);
+					new IHM_Training(null, null);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

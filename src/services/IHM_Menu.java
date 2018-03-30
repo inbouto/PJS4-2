@@ -28,13 +28,17 @@ import core.ICore;
 
 public class IHM_Menu extends JFrame implements ActionListener {
 	private ICore core;
+	private String AIid;
 	
 	private JButton boutonApplication; 
 	private JButton boutonEntrainement;
 	private JButton boutonQuitter;
 
-	public IHM_Menu(ICore core) throws IOException {
+
+	public IHM_Menu(ICore core, String AIid) throws IOException {
 		this.core = core;
+		this.AIid = AIid;
+
 		
     	this.setTitle("TechBot Menu");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -140,14 +144,14 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		this.dispose();
 		if (e.getSource() == boutonApplication) {
 			try {
-				new IHM_TempsReel(core);
+				new IHM_TempsReel(core, AIid);
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
 		}
 		else if (e.getSource() == boutonEntrainement) {
 			try {
-				new IHM_Training(core);
+				new IHM_Training(core, AIid);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -161,7 +165,7 @@ public class IHM_Menu extends JFrame implements ActionListener {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
-					new IHM_Menu(null);
+					new IHM_Menu(null, null);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

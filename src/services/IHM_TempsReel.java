@@ -15,6 +15,7 @@ import core.ICore;
  
 public class IHM_TempsReel extends JFrame implements ActionListener {
 	private ICore core;
+	private String AIid;
 	
 	private JTextField zoneDeSaisie;
     private JTextArea texteUser;
@@ -25,8 +26,9 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	private JButton boutonRetourMenu;
 	private JButton boutonQuitter;
  
-    public IHM_TempsReel(ICore core) throws IOException {
+    public IHM_TempsReel(ICore core, String AIid) throws IOException {
     	this.core = core;
+    	this.AIid = AIid;
     	
     	this.setTitle("TechBot Temps Reel");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -194,7 +196,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
     	if (e.getSource() == boutonRetourMenu) {
     		this.dispose();
 			try {
-				new IHM_Menu(core);
+				new IHM_Menu(core, AIid);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -219,14 +221,14 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	}
 
 	public void reponse(String texteReponse) {
-		this.reponse = core.askAI(texteReponse);
+		this.reponse = core.askAI(texteReponse, this.AIid);
 	}
  
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
-					new IHM_TempsReel(null);
+					new IHM_TempsReel(null, null);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
