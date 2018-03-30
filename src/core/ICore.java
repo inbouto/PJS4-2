@@ -8,6 +8,6 @@ public interface ICore {
 	public String askAI(String s);
 	
 	public void launch();
-	
+
 	
 }

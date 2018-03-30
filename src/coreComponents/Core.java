@@ -78,7 +78,8 @@ public class Core implements ICore {
 	//vérifie si la classe passée en argument est runnable et si elle a un constructeur public content un argument de type ICore
 	private boolean runnableCheck(Class<?> c) {
 		try {
-			return Runnable.class.isAssignableFrom(c) && c.getConstructor(ICore.class) != null;
+			c.getConstructor(ICore.class, int.class);
+			return Runnable.class.isAssignableFrom(c);
 		} catch (NoSuchMethodException e) {
 			System.err.println("pas de constructeur publique avec ICore en argument");
 		} catch (SecurityException e) {
@@ -124,7 +125,7 @@ public class Core implements ICore {
 		for(Class<? extends Runnable> c : ihm){
 			try {
 				System.out.println("on lance un thread avec " + c);
-				new Thread(c.getConstructor(ICore.class).newInstance(this)).start();
+				new Thread(c.getConstructor(ICore.class, int.class).newInstance(this, 0)).start();
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				System.err.println("impossible d'instancier l'ihm : " + c.getName());
@@ -142,6 +143,8 @@ public class Core implements ICore {
 		}
 		return r;
 	}
+
+	
 	
 	
 	

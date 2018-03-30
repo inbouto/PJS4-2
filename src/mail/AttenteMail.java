@@ -13,13 +13,19 @@ import com.sun.mail.imap.IMAPStore;
 import core.ICore;
 public class AttenteMail implements Runnable{
 
-	private  String USER_NAME = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
-    private  String PASSWORD = "fgVFunR3Z94ueFnE"; // GMail password
+	private  String username = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
+    private  String password = "fgVFunR3Z94ueFnE"; // GMail password
+    private final int SERVICE_ID;
     private  String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
     private ICore core;
     
-    public AttenteMail(ICore core){
+    public AttenteMail(ICore core, int serviceId){
+    	this.SERVICE_ID = serviceId;
     	this.core = core;
+    	this.username = core.getUsername(SERVICE_ID);
+    	System.out.println("cc" +username);
+    	this.password = core.getPassword(SERVICE_ID);
+    	System.out.println(password);
     }
 
     private  void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
@@ -77,7 +83,7 @@ public class AttenteMail implements Runnable{
         
         try {
             store = (IMAPStore) session.getStore("imaps");
-            store.connect(USER_NAME, PASSWORD);
+            store.connect(username, password);
 
             if (!store.hasCapability("IDLE")) {
                 throw new RuntimeException("IDLE not supported");
@@ -146,7 +152,7 @@ public class AttenteMail implements Runnable{
     	}
     	String subject = setSubject(message.getSubject());
     	String body = createBody(getTextFromMessage(message));
-    	sendFromGMail(USER_NAME, PASSWORD, adresses, subject, body);
+    	sendFromGMail(username, password, adresses, subject, body);
     }
     
     private String createBody(String content) {
@@ -162,7 +168,7 @@ public class AttenteMail implements Runnable{
 	        if (folder != null) {
 	            Store store = folder.getStore();
 	            if (store != null && !store.isConnected()) {
-	                store.connect(USER_NAME, PASSWORD);
+	                store.connect(username, password);
 	            }
 	        } else {
 	            throw new MessagingException("Unable to open a null folder");
@@ -178,13 +184,7 @@ public class AttenteMail implements Runnable{
 	    }
 
 	@Override
-	public void run() {
-		 String from = USER_NAME;
-	        String pass = PASSWORD;
-	        String[] to = { RECIPIENT }; // list of recipient email addresses
-	        String subject = "Petit Test ;)";
-	        String body = "Welcome to JavaMail!";  
-	        
+	public void run() {	        
 	        //sendFromGMail(from, pass, to, subject, body);
 	        incomingMail();
 		
