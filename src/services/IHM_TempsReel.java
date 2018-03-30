@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -209,7 +210,12 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	        zoneDeSaisie.selectAll();        
 	        texteUser.setCaretPosition(texteUser.getDocument().getLength());
 	       
-	        reponse(saisie());
+	        try {
+				reponse(saisie());
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	        texteIA.append(reponse + newline);
 	        texteIA.setCaretPosition(texteIA.getDocument().getLength());
 	        
@@ -220,7 +226,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 		return zoneDeSaisie.getText();
 	}
 
-	public void reponse(String texteReponse) {
+	public void reponse(String texteReponse) throws SQLException {
 		this.reponse = core.askAI(texteReponse, this.AIid);
 	}
  

@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="src/java-sdk-5.1.1-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="src/javax.mail.jar"/>
 	<classpathentry kind="lib" path="src/jsoup-1.11.2.jar"/>
+	<classpathentry kind="lib" path="src/ojdbc6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,10 +1,11 @@
 package services;
 
 import java.io.IOException;
+import core.Service;
 
 import core.ICore;
 
-public class IHM_Implementation implements Runnable {
+public class IHM_Implementation implements Service {
 	
 	private ICore core;
 	private String AIid;

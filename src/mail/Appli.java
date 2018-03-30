@@ -1,6 +1,7 @@
 package mail;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.mail.*;
@@ -18,8 +19,8 @@ public class Appli implements Runnable{
     private static String PASSWORD = "fgVFunR3Z94ueFnE"; // GMail password
     private static String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
 
-    public static void main(String[] args) {
-    	new Thread(new AttenteMail(new Core(), "0")).start();
+    public static void main(String[] args) throws SQLException {
+    	new Thread(new AttenteMail(new Core(), 0)).start();
      
     }
 

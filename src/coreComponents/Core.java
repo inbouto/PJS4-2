@@ -11,6 +11,8 @@ import java.util.List;
 import core.ICore;
 import core.IDonnees;
 import core.InterfaceIA;
+import core.Service;
+import donnees.Donnees;
 
 public class Core implements ICore {
 
@@ -20,14 +22,14 @@ public class Core implements ICore {
 	}
 	private final String initFile;
 	private static Core instance;
-	private List<Class<? extends Runnable>> ihm;
-	private InterfaceIA classifierAI;
+	private List<Class<? extends Service>> ihm;
+	private Class<? extends InterfaceIA> classifierAI;
 	private IDonnees donnees;
 	
 	
 	public Core() {
 		initFile = "init";
-		ihm = new ArrayList<Class<? extends Runnable>>();
+		ihm = new ArrayList<Class<? extends Service>>();
 		
 	}
 
@@ -46,11 +48,11 @@ public class Core implements ICore {
 			try {
 				if(aiCheck(c) && this.classifierAI == null){
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
-					this.classifierAI = (InterfaceIA) c.newInstance();
+					this.classifierAI = (Class<? extends InterfaceIA>) c;
 				}
 				else if(runnableCheck(c)){
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
-					this.ihm.add((Class<? extends Runnable>) c);
+					this.ihm.add((Class<? extends Service>) c);
 				}
 				else{
 					throw new UnknownComponentTypeException();
@@ -59,13 +61,10 @@ public class Core implements ICore {
 			} catch (UnknownComponentTypeException e) {
 				System.err.println("Le CoreComponent : " + c.toString() + "n'a pas pu être lancé");
 				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			
+			//TODO : charger dynamiquement comme le reste
+			donnees = new Donnees(this);
 		
 		}
 	} catch (IOException e1) {
@@ -75,7 +74,17 @@ public class Core implements ICore {
 }
 	
 	private boolean aiCheck(Class<?> c){
-		return InterfaceIA.class.isAssignableFrom(c);
+		try {
+			c.getConstructor(ICore.class, String.class);
+			return InterfaceIA.class.isAssignableFrom(c);
+		} catch (NoSuchMethodException e) {
+			System.err.println(c + " n'est pas une IA valide");
+		} catch (SecurityException e) {
+			System.err.println("problème de sécurité");
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 	
 	//vérifie si la classe passée en argument est runnable et si elle a un constructeur public content un argument de type ICore
@@ -112,8 +121,8 @@ public class Core implements ICore {
 	
 
 	@Override
-	public String askAI(String s, String IDAI) {
-		return donnees.getAI(IDAI).genererReponse(s);
+	public String askAI(String s, String IDAI) throws SQLException {
+		return donnees.getAI(IDAI, classifierAI).genererReponse(s);
 	}
 
 	public static ICore getInstance() {
@@ -125,16 +134,22 @@ public class Core implements ICore {
 	@Override
 	//Démarre les Runnable donnés dans le fichier init
 	public void launch() {
-		for(Class<? extends Runnable> c : ihm){
+		for(Integer i : donnees.getServices()){
 			try {
-				System.out.println("on lance un thread avec " + c);
-				new Thread(c.getConstructor(ICore.class, int.class).newInstance(this, 0)).start();
+				for(Class<? extends Service> c : ihm){
+					if(c.getName().equals(donnees.getClasseService(i))){
+						System.out.println("on lance un thread avec " + c);
+						Thread t = new Thread(c.getConstructor(ICore.class, int.class).newInstance(this, i));
+						t.start();
+					}
+				}
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-				System.err.println("impossible d'instancier l'ihm : " + c.getName());
+				System.err.println("impossible d'instancier le service : " + i);
 				e.printStackTrace();
 			}
 		}
+		
 		
 	}
 
@@ -148,15 +163,29 @@ public class Core implements ICore {
 	}
 
 	@Override
-	public String getPassword(String SERVICE_ID) throws SQLException {
+	public String getPassword(int SERVICE_ID) throws SQLException {
 		// TODO Auto-generated method stub
 		return donnees.getPassword(SERVICE_ID);
 	}
 
 	@Override
-	public String getUsername(String SERVICE_ID) throws SQLException {
+	public String getUsername(int SERVICE_ID) throws SQLException {
 		// TODO Auto-generated method stub
 		return donnees.getUsername(SERVICE_ID);
+	}
+
+	@Override
+	public String getPhraseFromClass(String topClass) throws SQLException {		
+		return donnees.getPhraseFromClass(topClass);
+	}
+
+	@Override
+	public String getAIFromService(int sERVICE_ID) throws SQLException {
+		return donnees.getAIFromService(sERVICE_ID);
+	}
+	
+	public String getClasseService(int SERVICE_ID){
+		return donnees.getClasseService(SERVICE_ID);
 	}
 
 	

@@ -34,7 +34,7 @@ CREATE TABLE ClassifierService(
 
 CREATE TABLE Service (
 	idService INTEGER PRIMARY KEY,
-	typeService VARCHAR2(50),
+	classeService VARCHAR2(50),
 	login VARCHAR2(50),
 	mdp VARCHAR2(50)
 )
@@ -57,8 +57,8 @@ ADD CONSTRAINT REF_Service FOREIGN KEY(idService) REFERENCES Service(idService)
 INSERT INTO Classifier VALUES('2fc31ex330-nlc-1535','MyTestWeather');
 INSERT INTO Classe VALUES('temperature','Ta mere est a 53 degrees fdp','2fc31ex330-nlc-1535');
 INSERT INTO Classe VALUES('condition','Ta mere pleut batard','2fc31ex330-nlc-1535');
-INSERT INTO Service VALUES(1,'mail','techbotdemo@gmail.com','L8KwuzRjh5WB/j\g');
-INSERT INTO Service VALUES(2,'twitter','techbotdemo','L8KwuzRjh5WB/j\g');
+INSERT INTO Service VALUES(1,'mail.AttenteMail','techbotdemo@gmail.com','fgVFunR3Z94ueFnE');
+INSERT INTO Service VALUES(2,'twitter','techbotdemo','fgVFunR3Z94ueFnE');
 INSERT INTO ClassifierService VALUES('2fc31ex330-nlc-1535',1);
 INSERT INTO ClassifierService VALUES('2fc31ex330-nlc-1535',2);
 

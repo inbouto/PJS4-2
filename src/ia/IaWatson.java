@@ -2,6 +2,7 @@ package ia;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
@@ -10,23 +11,27 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.CreateClassifierOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.GetClassifierOptions;
 
+import core.ICore;
 import core.InterfaceIA;
+import coreComponents.Core;
 
 public class IaWatson implements InterfaceIA{
 	
 	private String classifierId;
 	private NaturalLanguageClassifier service;
+	private ICore core;
 	
-	public IaWatson(String classifierId) {
+	public IaWatson(ICore core, String classifierId) {
 		String username = "e88c4313-d9a2-445c-8246-29168c3ef6a6";
 		String password = "6QMUX5QdO6vm";
 		String url = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 		service = new NaturalLanguageClassifier(username,password);
 		this.classifierId = classifierId;
+		this.core = core;
 	}
 	
 	@Override
-	public String genererReponse(String question) {
+	public String genererReponse(String question) throws SQLException {
 //		GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
 //				  .classifierId(classifierId)
 //				  .build();
@@ -37,7 +42,8 @@ public class IaWatson implements InterfaceIA{
 				.text(question)
 				.build();
 		Classification result = service.classify(options).execute();
-		return result.getTopClass();
+		String phrase = core.getPhraseFromClass(result.getTopClass());
+		return phrase;
 	}
 	
 	

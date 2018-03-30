@@ -1,15 +1,23 @@
 package core;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface IDonnees {
 
-	String getPassword(String SERVICE_ID) throws SQLException;
+	String getPassword(int sERVICE_ID);
 
-	String getUsername(String SERVICE_ID) throws SQLException;
+	String getUsername(int SERVICE_ID);
 
-	//String getAIResponse(String s, String iDAI);
+	
+	InterfaceIA getAI(String iDAI, Class<? extends InterfaceIA> classifierAI);
 
-	InterfaceIA getAI(String iDAI);
+	String getPhraseFromClass(String topClass);
+
+	String getAIFromService(int SERVICE_ID);
+
+	String getClasseService(int SERVICE_ID);
+	
+	List<Integer> getServices();
 
 }

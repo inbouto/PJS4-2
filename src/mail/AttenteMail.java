@@ -10,22 +10,23 @@ import javax.mail.internet.*;
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
+import core.Service;
 
 import core.ICore;
-public class AttenteMail implements Runnable{
+public class AttenteMail implements Service{
 
 	private  String username = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
     private  String password = "fgVFunR3Z94ueFnE"; // GMail password
-    private final String AI_ID;
+    private final int SERVICE_ID;
     private  String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
     private ICore core;
     
-    public AttenteMail(ICore core, String AIid) throws SQLException{
-    	this.AI_ID = AIid;
+    public AttenteMail(ICore core, int service_id) throws SQLException{
+    	this.SERVICE_ID = service_id;
     	this.core = core;
-    	this.username = core.getUsername(AI_ID);
+    	this.username = core.getUsername(SERVICE_ID);
     	System.out.println("cc" +username);
-    	this.password = core.getPassword(AI_ID);
+    	this.password = core.getPassword(SERVICE_ID);
     	System.out.println(password);
     }
 
@@ -99,7 +100,7 @@ public class AttenteMail implements Runnable{
                     for (Message message : messages) {
                         try {
 							creerReponse(message);
-						} catch (MessagingException | IOException e) {
+						} catch (MessagingException | IOException | SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -145,7 +146,7 @@ public class AttenteMail implements Runnable{
 
     }
 
-    public  void creerReponse(Message message) throws MessagingException, IOException{
+    public  void creerReponse(Message message) throws MessagingException, IOException, SQLException{
     	Address[] expediteurs = message.getFrom();
     	String[] adresses = new String[expediteurs.length];
     	for (int i=0; i<expediteurs.length; i++){
@@ -156,8 +157,8 @@ public class AttenteMail implements Runnable{
     	sendFromGMail(username, password, adresses, subject, body);
     }
     
-    private String createBody(String content) {
-		return this.core.askAI(content, content);
+    private String createBody(String content) throws SQLException {
+		return this.core.askAI(content, core.getAIFromService(SERVICE_ID));
 	}
 
 	public  String setSubject(String s){
