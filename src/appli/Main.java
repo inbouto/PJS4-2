@@ -2,7 +2,7 @@ package appli;
 
 import core.ICore;
 import coreComponents.Core;
-import ihm.IHM_Implementation;
+import services.IHM_Implementation;
 
 public class Main {
 
