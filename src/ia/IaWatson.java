@@ -14,37 +14,23 @@ import core.InterfaceIA;
 
 public class IaWatson implements InterfaceIA{
 	
-	private String username;
-	private String password;
-	private String url;
+	private String classifierId;
 	private NaturalLanguageClassifier service;
 	
-	public IaWatson() {
-		username = "e88c4313-d9a2-445c-8246-29168c3ef6a6";
-		password = "6QMUX5QdO6vm";
-		url = "https://gateway.watsonplatform.net/natural-language-classifier/api";
+	public IaWatson(String classifierId) {
+		String username = "e88c4313-d9a2-445c-8246-29168c3ef6a6";
+		String password = "6QMUX5QdO6vm";
+		String url = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 		service = new NaturalLanguageClassifier(username,password);
+		this.classifierId = classifierId;
 	}
 	
 	@Override
 	public String genererReponse(String question) {
-		String classifierId = "";
-		
-		ClassifierList list = service.listClassifiers().execute();
-		
-		System.out.println(service.getEndPoint());
-		System.out.println(service.getName());
-		System.out.println(list.getClassifiers());
-		System.out.println(service.getToken());
-		
-		
-		
-		classifierId = list.getClassifiers().get(0).getClassifierId();
-		
-		GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
-				  .classifierId(classifierId)
-				  .build();
-		System.out.println(service.getClassifier(getOptions).execute().getStatus());
+//		GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
+//				  .classifierId(classifierId)
+//				  .build();
+//		System.out.println(service.getClassifier(getOptions).execute().getStatus());
 		
 		ClassifyOptions options = new ClassifyOptions.Builder()
 				.classifierId(classifierId)
@@ -56,7 +42,7 @@ public class IaWatson implements InterfaceIA{
 	
 	
 	//renvoie l'id du classifier
-	public String createAndTrain(NaturalLanguageClassifier service,String pathTrainingFile, String pathMetadataFile) throws FileNotFoundException{
+	public static String createAndTrain(NaturalLanguageClassifier service,String pathTrainingFile, String pathMetadataFile) throws FileNotFoundException{
 		File trainingData = new File(pathTrainingFile);
 		File metaData = new File(pathMetadataFile);
 		CreateClassifierOptions options = new CreateClassifierOptions.Builder()
