@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2018 IBM Corp. All Rights Reserved.
  *
@@ -264,3 +265,4 @@ public class NaturalLanguageClassifier extends WatsonService {
     return listClassifiers();
   }
 }
+
