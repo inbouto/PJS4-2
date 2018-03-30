@@ -5,12 +5,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import core.ICore;
-import core.IService;
+import core.Service;
 import core.InterfaceIA;
 
 public class Core implements ICore {
@@ -21,14 +23,15 @@ public class Core implements ICore {
 	}
 	private final String initFile;
 	private static Core instance;
-	private List<IService> services;
 	private InterfaceIA classifierAI;
-	private List<Thread> threads;
+	
+	
+	private Map<Service, Thread> applications;
+	
 	
 	public Core() {
 		initFile = "init";
-		services = new Vector<IService>();
-		threads = new Vector<Thread>();
+		applications = new HashMap<Service, Thread>();
 		init();
 	}
 
@@ -45,6 +48,7 @@ public class Core implements ICore {
 		try {
 			loadedComponents.add(Class.forName("ia.IaWatson"));
 			loadedComponents.add(Class.forName("services.mail.AttenteMail"));
+			loadedComponents.add(Class.forName("services.IHM.IHM_Implementation"));
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -58,7 +62,8 @@ for(Class<?> c : loadedComponents){
 			}
 			else if(serviceCheck(c)){
 				//TODO: Code sale, peut-on faire autrement qu'un cast ???
-				services.add((IService) c.getConstructor(ICore.class).newInstance(this));
+				applications.put((Service) c.getConstructor(ICore.class).newInstance(this), null);
+				
 			}
 			else{
 				throw new IllegalComponentException();
@@ -91,10 +96,9 @@ for(Class<?> c : loadedComponents){
 		
 }
 	public void fullReset(){
-		allServicesStop();
-		services.clear();
+		stopAllServices();
+		applications.clear();
 		classifierAI = null;
-		threads.clear();
 	}
 	
 	private boolean aiCheck(Class<?> c){
@@ -104,7 +108,7 @@ for(Class<?> c : loadedComponents){
 	//vérifie si la classe passée en argument est runnable et si elle a un constructeur public content un argument de type ICore
 	private boolean serviceCheck(Class<?> c) {
 		try {
-			return IService.class.isAssignableFrom(c) && c.getConstructor(ICore.class) != null;
+			return Service.class.isAssignableFrom(c) && c.getConstructor(ICore.class) != null;
 		} catch (NoSuchMethodException e) {
 			System.err.println("pas de constructeur publique avec ICore en argument");
 		} catch (SecurityException e) {
@@ -147,10 +151,10 @@ for(Class<?> c : loadedComponents){
 	@Override
 	//Démarre les Runnable (services) puis sauvegarde les threads correspondant pour pouvoir les interrompre
 	public void fullLaunch() {
-		for(IService r : services){
+		for(Service r : applications.keySet()){
 			try {
 				Thread t = new Thread(r);
-				threads.add(t);
+				applications.put(r, t);
 				t.start();
 			} catch (IllegalArgumentException | SecurityException e) {
 				
@@ -163,39 +167,40 @@ for(Class<?> c : loadedComponents){
 	@Override
 	public String toString(){
 		String res = "IA : "+ classifierAI.getClass() +"\nIHM : ";
-		for(Runnable r : services){
-			res += "\n" + r.getClass().getName();
+		for(Service s : applications.keySet()){
+			res += "\n" + s.getClass().getName();
 		}
 		return res;
 	}
 	
 	
-	public void allServicesStop(){
-		for(IService s : services){
+	public void stopAllServices(){
+		for(Service s : applications.keySet()){
 			s.kill();
-		}
-		for(Iterator<Thread> i = threads.iterator(); i.hasNext();){
-			i.next().interrupt();
-			i.remove();
+			applications.get(s).interrupt();
 		}
 	}
 
 	@Override
 	public Boolean isAnyServiceRunning() {
-		for(IService s : services){
-			if(s.isRunning())
-				return true;
+		for(Thread t : applications.values()){
+			if(t != null)
+				if(t.isAlive())
+					return true;
 		}
 		return false;
 	}
 
 	@Override
 	public Boolean isRunning(String name) {
-		for(IService s : services){
-			if(s.getName().toLowerCase().equals(name.toLowerCase()))
-				if(s.isRunning())
-					return true;
+		try {
+			Service s = getServiceFromName(name);
+			System.out.println(s.isRunning());
+			return s.isRunning();
+		} catch (NoSuchServiceException e) {
+			System.err.println("cannot find service \""+name+"\"");
 		}
+		
 		return false;
 		
 	}
@@ -203,26 +208,44 @@ for(Class<?> c : loadedComponents){
 	@Override
 	public List<String> getServicesNames() {
 		List<String> r = new Vector<String>();
-		r.add("email");
-		r.add("IHM");
+		for(Service s : applications.keySet())
+			r.add(s.getName());
 		return r;
 	}
 
 	@Override
 	public void startService(String name) {
-		for(IService s : services){
-			if(s.getName().toLowerCase().equals(name.toLowerCase())){
-				Thread t = new Thread(s);
-				threads.add(t);
-				t.start();
-			}
+		try {
+			Service s;
+			s = getServiceFromName(name);
+			Thread t = new Thread(s);
+			applications.put(s, t);
+			t.start();
+				
+		} catch (NoSuchServiceException e) {
+			System.err.println("cannot find service \""+name+"\"");
 		}
 		
+		
+		
+	}
+	
+	public Service getServiceFromName(String name) throws NoSuchServiceException{
+		for(Service s : applications.keySet())
+			if(s.getName().toLowerCase().equals(name.toLowerCase()))
+				return s;
+		throw new NoSuchServiceException();
 	}
 
 	@Override
 	public void stopService(String name) {
-		// TODO Auto-generated method stub
+		try {
+			getServiceFromName(name).kill();
+			applications.get(getServiceFromName(name)).interrupt();
+			
+		} catch (NoSuchServiceException e) {
+			System.err.println("cannot find service \""+name+"\"");
+		}
 		
 	}
 	

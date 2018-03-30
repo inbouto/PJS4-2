@@ -5,19 +5,15 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,14 +27,14 @@ public class IHM_Menu extends JFrame implements ActionListener {
 	
 	private JButton boutonApplication; 
 	private JButton boutonEntrainement;
-	private JButton boutonQuitter;
+//	private JButton boutonQuitter;
 
 	public IHM_Menu(ICore core) throws IOException {
 		this.core = core;
 		
-    	this.setTitle("TechBot Menu");
+    	this.setTitle("QBot Menu");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setUndecorated(true);
+        //this.setUndecorated(true);
     	this.setResizable(false);
         centerWindow(this);     
  
@@ -58,7 +54,7 @@ public class IHM_Menu extends JFrame implements ActionListener {
     	
     	panelGeneral.setLayout(new BoxLayout(panelGeneral, BoxLayout.PAGE_AXIS));
     	
-    	panelGeneral.add(creerGestionFenetre());
+    	//panelGeneral.add(creerGestionFenetre());
     	panelGeneral.add(creerTitre());
     	panelGeneral.add(creerBoutonsSelection());
     	
@@ -69,24 +65,24 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		return panelGeneral;    	
 	}
 	
-	private JPanel creerGestionFenetre() throws IOException {
-    	//Code des boutons retour menu et quitter
-    	JPanel panelGestionFenetre = new JPanel();
-		
-        panelGestionFenetre.add(Box.createRigidArea(new Dimension(180,0)));  
-		
-        Image imageQuitter = ImageIO.read(new File("Ressources/Quitter.png"));
-    	Image iconeQuitter = imageQuitter.getScaledInstance(35, 35, Image.SCALE_DEFAULT);
-    	boutonQuitter = new JButton(new ImageIcon(iconeQuitter));
-    	boutonQuitter.setBackground(Color.red);
-    	boutonQuitter.setPreferredSize(new Dimension(35, 35));
-		boutonQuitter.setFocusable(false);
-		boutonQuitter.addActionListener(this);
-		
-		panelGestionFenetre.add(boutonQuitter);		
-        
-        return panelGestionFenetre;
-	}
+//	private JPanel creerGestionFenetre() throws IOException {
+//    	//Code des boutons retour menu et quitter
+//    	JPanel panelGestionFenetre = new JPanel();
+//		
+//        panelGestionFenetre.add(Box.createRigidArea(new Dimension(180,0)));  
+//		
+//        Image imageQuitter = ImageIO.read(new File("Ressources/Quitter.png"));
+//    	Image iconeQuitter = imageQuitter.getScaledInstance(35, 35, Image.SCALE_DEFAULT);
+//    	boutonQuitter = new JButton(new ImageIcon(iconeQuitter));
+//    	boutonQuitter.setBackground(Color.red);
+//    	boutonQuitter.setPreferredSize(new Dimension(35, 35));
+//		boutonQuitter.setFocusable(false);
+//		boutonQuitter.addActionListener(this);
+//		
+//		panelGestionFenetre.add(boutonQuitter);		
+//        
+//        return panelGestionFenetre;
+//	}
 
 	private JPanel creerTitre() {
 		JPanel panelTitre = new JPanel();

@@ -25,7 +25,7 @@ public class IHM_Training extends JFrame implements ActionListener {
     	
     	this.setTitle("TechBot Training");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setUndecorated(true);
+//      this.setUndecorated(true);
     	this.setResizable(false);
         centerWindow(this);
         
@@ -62,27 +62,28 @@ public class IHM_Training extends JFrame implements ActionListener {
     	//Code des boutons retour menu et quitter
     	JPanel panelGestionFenetre = new JPanel();
     	
-    	Image imageRetour = ImageIO.read(new File("Ressources/Retour.png"));
-    	Image iconeRetour = imageRetour.getScaledInstance(35, 35, Image.SCALE_DEFAULT);
-    	boutonRetourMenu = new JButton(new ImageIcon(iconeRetour));
+//    	Image imageRetour = ImageIO.read(new File("Ressources/Retour.png"));
+//    	Image iconeRetour = imageRetour.getScaledInstance(35, 35, Image.SCALE_DEFAULT);
+//    	boutonRetourMenu = new JButton(new ImageIcon(iconeRetour));
+    	boutonRetourMenu = new JButton("Retour");
     	boutonRetourMenu.setBackground(Color.white);
-    	boutonRetourMenu.setPreferredSize(new Dimension(35, 35));
+//    	boutonRetourMenu.setPreferredSize(new Dimension(35, 35));
     	boutonRetourMenu.setFocusable(false);
     	boutonRetourMenu.addActionListener(this);
         
         panelGestionFenetre.add(boutonRetourMenu);
 		
-        panelGestionFenetre.add(Box.createRigidArea(new Dimension(250,0)));  
-		
-        Image imageQuitter = ImageIO.read(new File("Ressources/Quitter.png"));
-    	Image iconeQuitter = imageQuitter.getScaledInstance(35, 35, Image.SCALE_DEFAULT);
-    	boutonQuitter = new JButton(new ImageIcon(iconeQuitter));
-    	boutonQuitter.setBackground(Color.red);
-    	boutonQuitter.setPreferredSize(new Dimension(35, 35));
-		boutonQuitter.setFocusable(false);
-		boutonQuitter.addActionListener(this);
-		
-		panelGestionFenetre.add(boutonQuitter);		
+//      panelGestionFenetre.add(Box.createRigidArea(new Dimension(250,0)));  
+//		
+//      Image imageQuitter = ImageIO.read(new File("Ressources/Quitter.png"));
+//    	Image iconeQuitter = imageQuitter.getScaledInstance(35, 35, Image.SCALE_DEFAULT);
+//    	boutonQuitter = new JButton(new ImageIcon(iconeQuitter));
+//    	boutonQuitter.setBackground(Color.red);
+//    	boutonQuitter.setPreferredSize(new Dimension(35, 35));
+//		boutonQuitter.setFocusable(false);
+//		boutonQuitter.addActionListener(this);
+//		
+//		panelGestionFenetre.add(boutonQuitter);		
 
 		panelGestionFenetre.setAlignmentX(Component.CENTER_ALIGNMENT);
         
@@ -200,9 +201,10 @@ public class IHM_Training extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
     	}
-		else if (e.getSource() == boutonQuitter) {
-			this.dispose();
-		}
+//		else if (e.getSource() == boutonQuitter) {
+//			this.dispose();
+//			isRunning = false;
+//		}
 		else {
 			this.dispose();
 		}		

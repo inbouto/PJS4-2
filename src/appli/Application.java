@@ -15,7 +15,7 @@ public class Application {
 	public static void typicalStartup(){
 		ICore core = Core.getInstance();
 		
-		core.fullReset();
+
 		core.init();
 		core.fullLaunch();
 	}

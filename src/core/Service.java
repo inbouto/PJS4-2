@@ -1,6 +1,6 @@
 package core;
 
-public interface IService extends Runnable {
+public interface Service extends Runnable {
 	public void kill();
 	
 	public Boolean isRunning();

@@ -11,8 +11,8 @@ import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 import core.ICore;
-import core.IService;
-public class AttenteMail implements IService{
+import core.Service;
+public class AttenteMail implements Service{
 
 	private  String USER_NAME = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
     private  String PASSWORD = "fgVFunR3Z94ueFnE"; // GMail password
