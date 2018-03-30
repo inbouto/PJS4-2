@@ -68,4 +68,3 @@ public class IaWatson implements InterfaceIA{
 	}
 	
 }
-

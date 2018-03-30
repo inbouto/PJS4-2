@@ -1,8 +1,7 @@
 package ia;
 
-import core.Core;
 import core.InterfaceIA;
-import coreComponents.CoreComponentManager;
+import coreComponents.Core;
 
 public class IAV1 implements InterfaceIA {
 	
