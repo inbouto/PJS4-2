@@ -27,7 +27,7 @@ public class UserWebApp {
 	
 	public static String getServiceInfo(int service_id){
 		//TODO : THIS SHOULD CHANGE to give us the name of the AI instead
-		return Core.getInstance().getAIFromService(service_id);
+		return Core.getInstance().getAIFromService(service_id) + " on " + Core.getInstance().getUsername(service_id);
 	}
 	
 	public static Boolean getServiceState(int service_id){

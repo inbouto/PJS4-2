@@ -14,6 +14,6 @@ please hold while we launch your service...
             System.out.println(e);
          }
 	}
-	response.sendRedirect("/TechBot/");
+	response.sendRedirect("/TechBot/menu.jsp");
 
 %>

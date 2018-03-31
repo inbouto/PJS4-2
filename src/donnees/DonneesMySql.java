@@ -87,7 +87,7 @@ public class DonneesMySql implements IDonnees{
 		
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
-			System.err.println("Erreur requête : getPhraseFromClass");
+			System.err.println("Erreur requête : getPhraseFromClass pour " + topClass);
 		}
 		else {
 			String reponse = rs.getString("text");
