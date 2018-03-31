@@ -2,18 +2,12 @@ package ia;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
-
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifierList;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyOptions;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.CreateClassifierOptions;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.GetClassifierOptions;
-
 import core.ICore;
 import core.InterfaceIA;
-import coreComponents.Core;
 
 public class IaWatson implements InterfaceIA{
 	
@@ -23,7 +17,6 @@ public class IaWatson implements InterfaceIA{
 	public IaWatson(ICore core) {
 		String username = "e88c4313-d9a2-445c-8246-29168c3ef6a6";
 		String password = "6QMUX5QdO6vm";
-		String url = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 		service = new NaturalLanguageClassifier(username,password);
 
 		this.core = core;

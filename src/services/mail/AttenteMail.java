@@ -18,7 +18,6 @@ public class AttenteMail implements Service{
 	private  String username = "techbotdemo";  // GMail user name (just the part before "@gmail.com")
     private  String password = "fgVFunR3Z94ueFnE"; // GMail password
     private final int SERVICE_ID;
-    private  String RECIPIENT = "thibault.dugauquier@etu.parisdescartes.fr";
     private ICore core;
 	private ThreadAttente idleThread;
     
@@ -109,7 +108,7 @@ public class AttenteMail implements Service{
                     }
                 }
             });
-            idleThread = new ThreadAttente(inbox);
+            idleThread = new ThreadAttente(inbox, this);
             idleThread.setDaemon(false);
             idleThread.start();
 

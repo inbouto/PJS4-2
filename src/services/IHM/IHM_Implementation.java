@@ -10,6 +10,7 @@ public class IHM_Implementation implements Service {
 	private ICore core;
 	private String AIid;
 	
+	@SuppressWarnings("unused")
 	private String IdService;
 
 	

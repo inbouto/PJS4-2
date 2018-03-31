@@ -58,10 +58,6 @@ public class Main {
 	public static void main(String[] args) {
 		String username = "e88c4313-d9a2-445c-8246-29168c3ef6a6";
 		String password = "6QMUX5QdO6vm";
-		String url = "https://gateway.watsonplatform.net/natural-language-classifier/api";
-		
-		
-		
 		NaturalLanguageClassifier service = new NaturalLanguageClassifier(username,password);
 		//classifier.setEndPoint(url);
 		

@@ -1,18 +1,16 @@
 package donnees;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import core.ICore;
 import core.IDonnees;
-import core.InterfaceIA;
-import ia.IaWatson;
 
 public class DonneesMySql implements IDonnees{
 	
 	private Connection c;
+	@SuppressWarnings("unused")
 	private ICore core;
 	
 	static{

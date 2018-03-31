@@ -15,6 +15,10 @@ import core.ICore;
 
  
 public class IHM_TempsReel extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ICore core;
 	private String AIid;
 	

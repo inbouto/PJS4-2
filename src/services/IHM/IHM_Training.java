@@ -13,6 +13,10 @@ import core.ICore;
 
 
 public class IHM_Training extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ICore core;
 	private String AIid;
 	
@@ -128,7 +132,8 @@ public class IHM_Training extends JFrame implements ActionListener {
         return panelTexte;
     }
     
-    public JPanel creerClasses() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public JPanel creerClasses() {
     	//Code de la phrase d'instruction et de la comboBox contenant les classes existantes dans les données
     	JPanel panelClasses = new JPanel();
     	

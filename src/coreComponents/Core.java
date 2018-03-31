@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,22 +15,20 @@ import core.IDonnees;
 import core.InterfaceIA;
 import core.Service;
 import donnees.DonneesMySql;
-import donnees.DonneesOracle;
 
 public class Core implements ICore {
 
 	static{
 		instance = new Core();
 	}
-	private final String initFile;
 	private static Core instance;
 	private List<Class<? extends Service>> ihm;
 	private InterfaceIA classifierAI;
 	private IDonnees donnees;
 	private Map<Integer, Pair<Service,Thread>> userServices;
 	
+	@SuppressWarnings("unchecked")
 	public Core() {
-		initFile = "init";
 		ihm = new ArrayList<Class<? extends Service>>();
 		userServices = new HashMap<Integer, Pair<Service,Thread>>();
 		
@@ -139,6 +136,7 @@ public class Core implements ICore {
 
 
 	//Cette fonction charge tous les Components précisés dans le fichier d"initialisation
+	@SuppressWarnings("unused")
 	private List<Class<?>> getComponentsFromFile(String string) throws IOException {
 		List<Class<?>> liste = new ArrayList<Class<?>>();
 		for(String s : Files.readAllLines(FileSystems.getDefault().getPath(string))){
