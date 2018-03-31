@@ -17,21 +17,20 @@ import coreComponents.Core;
 
 public class IaWatson implements InterfaceIA{
 	
-	private String classifierId;
 	private NaturalLanguageClassifier service;
 	private ICore core;
 	
-	public IaWatson(ICore core, String classifierId) {
+	public IaWatson(ICore core) {
 		String username = "e88c4313-d9a2-445c-8246-29168c3ef6a6";
 		String password = "6QMUX5QdO6vm";
 		String url = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 		service = new NaturalLanguageClassifier(username,password);
-		this.classifierId = classifierId;
+
 		this.core = core;
 	}
 	
 	@Override
-	public String genererReponse(String question) throws SQLException {
+	public String genererReponse(String question, String classifierId) {
 //		GetClassifierOptions getOptions = new GetClassifierOptions.Builder()
 //				  .classifierId(classifierId)
 //				  .build();

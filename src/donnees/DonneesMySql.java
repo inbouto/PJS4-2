@@ -42,7 +42,7 @@ public class DonneesMySql implements IDonnees{
 		System.out.println(SERVICE_ID);
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
-			System.out.println("Erreur requête");
+			System.err.println("Erreur requête : getPassword");
 		}
 		else {
 			String password = rs.getString("mdp");
@@ -63,7 +63,7 @@ public class DonneesMySql implements IDonnees{
 		
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
-			System.out.println("Erreur requête");
+			System.err.println("Erreur requête : getUsername");
 		}
 		else {
 			String username = rs.getString("login");
@@ -78,52 +78,7 @@ public class DonneesMySql implements IDonnees{
 	}
 
 	
-	@Override
-	public InterfaceIA getAI(String iDAI, Class<? extends InterfaceIA> AIClass)  {
-		PreparedStatement statement;
-		try {
-			statement = c.prepareStatement("SELECT CID FROM Classifier where CID = ?");
-		
-		statement.setString(1, iDAI);
-		ResultSet rs = statement.executeQuery();
-		if(!rs.next()){
-			System.out.println("Erreur requête");
-		}
-		
-		else {
-			InterfaceIA ia;
-				ia = AIClass.getConstructor(ICore.class, String.class).newInstance(core, rs.getString("CID"));
-				return ia;
-			}
-		}
-			 catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			}
-		
-		
-		
-		
-		return null;
-	}
+	
 
 	@Override
 	public String getPhraseFromClass(String topClass)  {
@@ -134,7 +89,7 @@ public class DonneesMySql implements IDonnees{
 		
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
-			System.out.println("Erreur requête");
+			System.err.println("Erreur requête : getPhraseFromClass");
 		}
 		else {
 			String reponse = rs.getString("text");
@@ -156,7 +111,7 @@ public class DonneesMySql implements IDonnees{
 		
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
-			System.out.println("Erreur requête");
+			System.err.println("Erreur requête : getAIFromService");
 		}
 		else {
 			String ai = rs.getString("CID");
@@ -178,7 +133,7 @@ public class DonneesMySql implements IDonnees{
 		
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
-			System.out.println("Erreur requête");
+			System.err.println("Erreur requête : getClasseService pour service_id = " + SERVICE_ID);
 		}
 		else {
 			String classe = rs.getString("ClasseService");

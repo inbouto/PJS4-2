@@ -1,28 +1,35 @@
 package core;
 
-import java.sql.SQLException;
+import java.util.List;
 
 public interface ICore {
 
 	public void init();
 
-	public String askAI(String s, String aIid) throws SQLException;
+	public String askAI(String s, String aIid);
 	
 
-	public String getPassword(int sERVICE_ID) throws SQLException;
+	public String getPassword(int sERVICE_ID);
 
-	public String getUsername(int SERVICE_ID) throws SQLException;
+	public String getUsername(int SERVICE_ID);
 
-	public String getPhraseFromClass(String topClass) throws SQLException;
+	public String getPhraseFromClass(String topClass);
 
 
-	public String getAIFromService(int sERVICE_ID) throws SQLException;
+	public String getAIFromService(int sERVICE_ID);
 
 	void launch();
 	
 	public String getClasseService(int SERVICE_ID);
 
 	public void startService(int service_id);
+	
+	public Boolean isRunning(int service_id);
+	
+	public List<Integer> getServicesID();
+
+	public void stopService(int service_id);
+	
 	
 	
 }

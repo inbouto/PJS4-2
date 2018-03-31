@@ -9,15 +9,13 @@ public interface IDonnees {
 
 	String getUsername(int SERVICE_ID);
 
-	
-	InterfaceIA getAI(String iDAI, Class<? extends InterfaceIA> classifierAI);
-
 	String getPhraseFromClass(String topClass);
 
 	String getAIFromService(int SERVICE_ID);
 
 	String getClasseService(int SERVICE_ID);
 	
+	//eventually, getServices should take into account what user is asking for their services. For the demo, we'll assume there is only one user.
 	List<Integer> getServices();
 
 }
