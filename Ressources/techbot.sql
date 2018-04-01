@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 31, 2018 at 07:06 PM
+-- Generation Time: Apr 01, 2018 at 03:23 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -96,6 +96,27 @@ INSERT INTO `classifierservice` (`CID`, `idService`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `platforms`
+--
+
+DROP TABLE IF EXISTS `platforms`;
+CREATE TABLE IF NOT EXISTS `platforms` (
+  `platName` varchar(100) NOT NULL,
+  `class` varchar(100) NOT NULL,
+  PRIMARY KEY (`platName`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `platforms`
+--
+
+INSERT INTO `platforms` (`platName`, `class`) VALUES
+('e-mail', 'services.mail.AttenteMail'),
+('server-side U.I.', 'services.IHM.IHM_Implementation');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `service`
 --
 
@@ -105,18 +126,21 @@ CREATE TABLE IF NOT EXISTS `service` (
   `classeService` varchar(50) DEFAULT NULL,
   `login` varchar(50) DEFAULT NULL,
   `mdp` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idService`)
+  `name` varchar(30) DEFAULT NULL,
+  `platName` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`idService`),
+  KEY `platName` (`platName`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service`
 --
 
-INSERT INTO `service` (`idService`, `classeService`, `login`, `mdp`) VALUES
-(1, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE'),
-(2, 'twitter', 'techbotdemo', 'fgVFunR3Z94ueFnE'),
-(3, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE'),
-(4, 'services.IHM.IHM_Implementation', 'Local', NULL);
+INSERT INTO `service` (`idService`, `classeService`, `login`, `mdp`, `name`, `platName`) VALUES
+(1, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'E-mail weather test', 'e-mail'),
+(2, 'twitter', 'techbotdemo', 'fgVFunR3Z94ueFnE', 'Twitter', NULL),
+(3, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'E-mail QBot FAQ', 'e-mail'),
+(4, 'services.IHM.IHM_Implementation', 'Local', NULL, 'Server-side UI', 'server-side U.I.');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
