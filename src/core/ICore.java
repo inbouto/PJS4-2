@@ -38,6 +38,10 @@ public interface ICore {
 
 
 	public List<Integer> getRunningServiceIDsFromAI(String cid);
+
+	public List<String> getAIs();
+
+	public List<String> getPlatformNames();
 	
 	
 	

@@ -271,6 +271,16 @@ public class Core implements ICore {
 	public List<Integer> getRunningServiceIDsFromAI(String cid) {
 		return donnees.getRunningServiceNameFromAI(cid);
 	}
+
+	@Override
+	public List<String> getAIs() {
+		return donnees.getAIs();
+	}
+
+	@Override
+	public List<String> getPlatformNames() {
+		return donnees.getPlatformNames();
+	}
 	
 
 	

@@ -25,4 +25,8 @@ public interface IDonnees {
 
 	List<Integer> getRunningServiceNameFromAI(String cid);
 
+	List<String> getAIs();
+
+	List<String> getPlatformNames();
+
 }

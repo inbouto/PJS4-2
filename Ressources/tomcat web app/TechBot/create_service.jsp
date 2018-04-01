@@ -1,5 +1,41 @@
+<%@ page import="java.util.List.*"
+import="webApp.UserWebApp.*" %>
+
+<%!
+//This will eventually depends on the logged in user
+private java.util.List<String> getAIs(){
+	return webApp.UserWebApp.getAIs();
+}
+
+private String getAIName(String cid){
+	return webApp.UserWebApp.getAIName(cid);
+}
+
+private String getAIOptions(){
+	String r = "";
+	for(String cid : getAIs()){
+		r += "<option>" + getAIName(cid);
+	}
+	return r;
+}
+
+private java.util.List<String> getPlatformNames(){
+	return webApp.UserWebApp.getPlatformNames();
+}
+
+private String getPlatformOptions(){
+	String r = "";
+	for(String name : getPlatformNames()){
+		r += "<option>" + name;
+	}
+	return r;
+}
+
+%>
+
 <%
-	String available_AIs = "<option>aaaa<option>bbbb";
+	String available_AIs = getAIOptions();
+	String available_service_types = getPlatformOptions();
 %>
 
 <!DOCTYPE html>
@@ -20,8 +56,7 @@
 		<form action="generate_service.jsp">
 			Name <input type="text" name="name"><br>
 			Type <select name="type" size="1">
-			<option>E-mail
-			<option>server-side U.I.
+			<%= available_service_types %>
 			</select><br>
 			A.I. <select name="ai" size="1">
 			<%= available_AIs %>
@@ -30,7 +65,8 @@
 			login <input type="text" name="login"> password <input type="password" name="password"><br>
 			<input type="submit" value="create">
 		</form>
-
+<br>
+				<a href="/TechBot/dashboard.jsp"><input type="button" value="back"></a><br>
 		</div>
 	</body>
 </html>

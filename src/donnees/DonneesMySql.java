@@ -231,6 +231,44 @@ public class DonneesMySql implements IDonnees{
 			}
 		return null;
 	}
+
+	@Override
+	public List<String> getAIs() {
+		List<String> listCIDs = new Vector<String>();
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("select cid from classifier");
+		
+		ResultSet rs = statement.executeQuery();
+		while(rs.next()){
+			listCIDs.add(rs.getString("cid"));
+		}
+		return listCIDs;
+		} catch (SQLException e1) {
+			System.err.println("Erreur requête : getAIs");
+			e1.printStackTrace();
+			}
+		return null;
+	}
+
+	@Override
+	public List<String> getPlatformNames() {
+		List<String> listNames = new Vector<String>();
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("select platName from platforms");
+		
+		ResultSet rs = statement.executeQuery();
+		while(rs.next()){
+			listNames.add(rs.getString("platname"));
+		}
+		return listNames;
+		} catch (SQLException e1) {
+			System.err.println("Erreur requête : getPlatformNames");
+			e1.printStackTrace();
+			}
+		return null;
+	}
 	
 	
 	

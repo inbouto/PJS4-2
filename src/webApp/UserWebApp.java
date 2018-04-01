@@ -2,21 +2,12 @@ package webApp;
 
 import java.util.List;
 
-import core.ICore;
 import coreComponents.Core;
 
 
 
 public class UserWebApp {
 
-	public static void main(String[] args) {
-		ICore core = new Core();
-		
-		core.init();
-		
-		core.startService(3);
-
-	}
 	
 	public static int getUserServiceAmounts(){
 		return Core.getInstance().getServicesID().size();
@@ -48,6 +39,14 @@ public class UserWebApp {
 	
 	public static List<Integer> getRunningServiceIDsFromAI(String cid){
 		return Core.getInstance().getRunningServiceIDsFromAI(cid);
+	}
+	
+	public static List<String> getAIs(){
+		return Core.getInstance().getAIs();
+	}
+	
+	public static List<String> getPlatformNames(){
+		return Core.getInstance().getPlatformNames();
 	}
 
 }

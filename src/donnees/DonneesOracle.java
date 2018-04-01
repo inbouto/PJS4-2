@@ -213,20 +213,39 @@ public class DonneesOracle implements IDonnees{
 	}
 	
 	@Override
-	public List<String> getRunningServiceNameFromAI(String cid) {
+	public List<Integer> getRunningServiceNameFromAI(String cid) {
 
-		List<String> listNames = new Vector<String>();
+		List<Integer> listNames = new Vector<Integer>();
 		PreparedStatement statement;
 		try {
-			statement = c.prepareStatement("select name from service,classifierservice where CId='"+cid+"' and classifierservice.idService=service.idService");
+			statement = c.prepareStatement("select idservice from classifierservice where CId='"+cid+"'");
 		
 		ResultSet rs = statement.executeQuery();
 		while(rs.next()){
-			listNames.add(rs.getString("name"));
+			listNames.add(rs.getInt("idService"));
 		}
 		return listNames;
 		} catch (SQLException e1) {
 			System.err.println("Erreur requête : getRunningServiceNameFromAI : "+cid);
+			e1.printStackTrace();
+			}
+		return null;
+	}
+	
+	@Override
+	public List<String> getAIs() {
+		List<String> listCIDs = new Vector<String>();
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("select cid from classifier");
+		
+		ResultSet rs = statement.executeQuery();
+		while(rs.next()){
+			listCIDs.add(rs.getString("cid"));
+		}
+		return listCIDs;
+		} catch (SQLException e1) {
+			System.err.println("Erreur requête : getAIs");
 			e1.printStackTrace();
 			}
 		return null;
