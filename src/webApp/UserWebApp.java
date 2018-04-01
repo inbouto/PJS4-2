@@ -9,8 +9,8 @@ import coreComponents.Core;
 public class UserWebApp {
 
 	
-	public static int getUserServiceAmounts(){
-		return Core.getInstance().getServicesID().size();
+	public static List<Integer> getUserServices(){
+		return Core.getInstance().getServicesID();
 	}
 	
 	public static String getServiceName(int service_id){

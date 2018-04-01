@@ -46,6 +46,8 @@ public interface ICore {
 	public void createService(String name, String type, String cID, String login, String pwd);
 
 	public List<String> getAITypes();
+
+	public void deleteService(int service_id);
 	
 	
 	

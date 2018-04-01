@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="src/jsoup-1.11.2.jar"/>
 	<classpathentry kind="lib" path="src/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="src/mysql-connector-java-5.1.46.jar"/>
+	<classpathentry kind="lib" path="src/twitter4j-core-4.0.4.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

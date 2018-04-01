@@ -33,4 +33,6 @@ public interface IDonnees {
 
 	List<String> getAITypes();
 
+	void deleteService(int service_id);
+
 }

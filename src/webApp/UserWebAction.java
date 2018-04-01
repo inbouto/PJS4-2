@@ -15,4 +15,8 @@ public class UserWebAction {
 	public static void createService(String name, String type, String CID, String login, String pwd){
 		Core.getInstance().createService(name, type, CID, login, pwd);
 	}
+	
+	public static void deleteService(int service_id){
+		Core.getInstance().deleteService(service_id);
+	}
 }

@@ -277,7 +277,7 @@ public class DonneesMySql implements IDonnees{
 			st.executeUpdate("insert into service (classeService, login, mdp, name, platName, CID) VALUES ('" + getPlatformClass(type) + "', '" + login + "', '" + pwd + "', '" + name + "', '" + type + "', '" + CID + "')");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Erreur requête : createService");
 			e.printStackTrace();
 		} 
 		
@@ -309,6 +309,19 @@ public class DonneesMySql implements IDonnees{
 		List<String> l = new Vector<String>();
 		l.add("Natural language classifier (NLC)");
 		return l;
+	}
+
+	@Override
+	public void deleteService(int service_id) {
+		try {
+			Statement st = c.createStatement();
+			st.executeUpdate("delete from service where idService = " + service_id);
+			
+		} catch (SQLException e) {
+			System.err.println("Erreur requête : createService");
+			e.printStackTrace();
+		} 
+		
 	}
 	
 
