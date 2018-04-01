@@ -14,7 +14,7 @@ private String getAIName(String cid){
 private String getAIOptions(){
 	String r = "";
 	for(String cid : getAIs()){
-		r += "<option>" + getAIName(cid);
+		r += "<option value='" + cid + "'>" + getAIName(cid) + "</option>";
 	}
 	return r;
 }

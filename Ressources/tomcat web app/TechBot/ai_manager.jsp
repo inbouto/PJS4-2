@@ -113,7 +113,7 @@ for(String cid : CIDs){
 						
 					</table>
 					
-				<input type="button" value="Create new A.I."><br>
+				<a href="/TechBot/addAI.jsp"><input type="button" value="Create new A.I."><br>
 				<a href="/TechBot/dashboard.jsp"><input type="button" value="back"></a><br>
 			</div>
 
