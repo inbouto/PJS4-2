@@ -105,7 +105,7 @@ public class DonneesMySql implements IDonnees{
 	public String getAIFromService(int SERVICE_ID)  {
 		PreparedStatement statement;
 		try {
-			statement = c.prepareStatement("SELECT CID FROM ClassifierService where idService = '" +SERVICE_ID +"'");
+			statement = c.prepareStatement("SELECT CID FROM service where idService = '" +SERVICE_ID +"'");
 		
 		
 		ResultSet rs = statement.executeQuery();
@@ -193,7 +193,7 @@ public class DonneesMySql implements IDonnees{
 		
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
-			System.err.println("Erreur requête : getServiceName");
+			System.err.println("Erreur requête : getServiceName : " + service_id);
 		}
 		else {
 			String name = rs.getString("name");
@@ -218,7 +218,7 @@ public class DonneesMySql implements IDonnees{
 		List<Integer> listNames = new Vector<Integer>();
 		PreparedStatement statement;
 		try {
-			statement = c.prepareStatement("select idservice from classifierservice where CId='"+cid+"'");
+			statement = c.prepareStatement("select idservice from service where CId='"+cid+"'");
 		
 		ResultSet rs = statement.executeQuery();
 		while(rs.next()){
@@ -269,8 +269,47 @@ public class DonneesMySql implements IDonnees{
 			}
 		return null;
 	}
+
+	@Override
+	public void createService(String name, String type, String CID, String login, String pwd) {
+		 try {
+			Statement st = c.createStatement();
+			st.executeUpdate("insert into service (classeService, login, mdp, name, platName, CID) VALUES ('" + getPlatformClass(type) + "', '" + login + "', '" + pwd + "', '" + name + "', '" + type + "', '" + CID + "')");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	}
 	
-	
+	private String getPlatformClass(String platformName) {
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("SELECT class FROM platforms where platname = '" + platformName + "'");
+		
+		ResultSet rs = statement.executeQuery();
+		if(!rs.next()){
+			System.err.println("Erreur requête : getPlatformClass : " + platformName);
+		}
+		else {
+			String cls = rs.getString("class");
+			System.out.println(cls);
+			return cls;
+		}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+		return null;
+	}
+
+	@Override
+	public List<String> getAITypes() {
+		List<String> l = new Vector<String>();
+		l.add("Natural language classifier (NLC)");
+		return l;
+	}
 	
 
 }

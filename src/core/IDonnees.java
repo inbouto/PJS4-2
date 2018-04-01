@@ -29,4 +29,8 @@ public interface IDonnees {
 
 	List<String> getPlatformNames();
 
+	void createService(String name, String type, String cID, String login, String pwd);
+
+	List<String> getAITypes();
+
 }

@@ -251,4 +251,64 @@ public class DonneesOracle implements IDonnees{
 		return null;
 	}
 	
+	@Override
+	public List<String> getPlatformNames() {
+		List<String> listNames = new Vector<String>();
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("select platName from platforms");
+		
+		ResultSet rs = statement.executeQuery();
+		while(rs.next()){
+			listNames.add(rs.getString("platname"));
+		}
+		return listNames;
+		} catch (SQLException e1) {
+			System.err.println("Erreur requête : getPlatformNames");
+			e1.printStackTrace();
+			}
+		return null;
+	}
+	
+	@Override
+	public List<String> getAITypes() {
+		List<String> l = new Vector<String>();
+		l.add("Natural language classifier (NLC)");
+		return l;
+	}
+
+	@Override
+	public void createService(String name, String type, String CID, String login, String pwd) {
+		 try {
+			Statement st = c.createStatement();
+			st.executeUpdate("insert into service (classeService, login, mdp, name, platName, CID) VALUES ('" + getPlatformClass(type) + "', '" + login + "', '" + pwd + "', '" + name + "', '" + type + "', '" + CID + "')");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	}
+	
+	private String getPlatformClass(String platformName) {
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("SELECT class FROM platforms where platname = '" + platformName + "'");
+		
+		ResultSet rs = statement.executeQuery();
+		if(!rs.next()){
+			System.err.println("Erreur requête : getPlatformClass : " + platformName);
+		}
+		else {
+			String cls = rs.getString("class");
+			System.out.println(cls);
+			return cls;
+		}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+		return null;
+	}
+	
 }

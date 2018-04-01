@@ -48,5 +48,9 @@ public class UserWebApp {
 	public static List<String> getPlatformNames(){
 		return Core.getInstance().getPlatformNames();
 	}
+	
+	public static List<String> getAITypes(){
+		return Core.getInstance().getAITypes();
+	}
 
 }

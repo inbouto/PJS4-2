@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 01, 2018 at 03:23 PM
+-- Generation Time: Apr 01, 2018 at 05:55 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -72,30 +72,6 @@ INSERT INTO `classifier` (`CID`, `nomClassifier`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `classifierservice`
---
-
-DROP TABLE IF EXISTS `classifierservice`;
-CREATE TABLE IF NOT EXISTS `classifierservice` (
-  `CID` varchar(50) NOT NULL,
-  `idService` int(11) NOT NULL,
-  PRIMARY KEY (`CID`,`idService`),
-  KEY `REF_Service` (`idService`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `classifierservice`
---
-
-INSERT INTO `classifierservice` (`CID`, `idService`) VALUES
-('2fbbc6x326-nlc-1922', 3),
-('2fbbc6x326-nlc-1922', 4),
-('2fc31ex330-nlc-1535', 1),
-('2fc31ex330-nlc-1535', 2);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `platforms`
 --
 
@@ -122,25 +98,26 @@ INSERT INTO `platforms` (`platName`, `class`) VALUES
 
 DROP TABLE IF EXISTS `service`;
 CREATE TABLE IF NOT EXISTS `service` (
-  `idService` int(11) NOT NULL,
+  `idService` int(11) NOT NULL AUTO_INCREMENT,
   `classeService` varchar(50) DEFAULT NULL,
   `login` varchar(50) DEFAULT NULL,
   `mdp` varchar(50) DEFAULT NULL,
   `name` varchar(30) DEFAULT NULL,
   `platName` varchar(100) DEFAULT NULL,
+  `CID` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idService`),
   KEY `platName` (`platName`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service`
 --
 
-INSERT INTO `service` (`idService`, `classeService`, `login`, `mdp`, `name`, `platName`) VALUES
-(1, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'E-mail weather test', 'e-mail'),
-(2, 'twitter', 'techbotdemo', 'fgVFunR3Z94ueFnE', 'Twitter', NULL),
-(3, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'E-mail QBot FAQ', 'e-mail'),
-(4, 'services.IHM.IHM_Implementation', 'Local', NULL, 'Server-side UI', 'server-side U.I.');
+INSERT INTO `service` (`idService`, `classeService`, `login`, `mdp`, `name`, `platName`, `CID`) VALUES
+(1, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'E-mail weather test', 'e-mail', '2fc31ex330-nlc-1535'),
+(2, 'twitter', 'techbotdemo', 'fgVFunR3Z94ueFnE', 'Twitter', NULL, '2fc31ex330-nlc-1535'),
+(3, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'E-mail QBot FAQ', 'e-mail', '2fbbc6x326-nlc-1922'),
+(4, 'services.IHM.IHM_Implementation', 'Local', NULL, 'Server-side UI', 'server-side U.I.', '2fbbc6x326-nlc-1922');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

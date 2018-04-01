@@ -281,6 +281,17 @@ public class Core implements ICore {
 	public List<String> getPlatformNames() {
 		return donnees.getPlatformNames();
 	}
+
+	@Override
+	public void createService(String name, String type, String CID, String login, String pwd) {
+		donnees.createService(name, type, CID, login, pwd);
+		
+	}
+
+	@Override
+	public List<String> getAITypes() {
+		return donnees.getAITypes();
+	}
 	
 
 	

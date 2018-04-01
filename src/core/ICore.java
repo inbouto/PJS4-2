@@ -42,6 +42,10 @@ public interface ICore {
 	public List<String> getAIs();
 
 	public List<String> getPlatformNames();
+
+	public void createService(String name, String type, String cID, String login, String pwd);
+
+	public List<String> getAITypes();
 	
 	
 	

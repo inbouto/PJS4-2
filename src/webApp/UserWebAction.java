@@ -11,4 +11,8 @@ public class UserWebAction {
 	public static void stop(int service_id){
 		Core.getInstance().stopService(service_id);
 	}
+	
+	public static void createService(String name, String type, String CID, String login, String pwd){
+		Core.getInstance().createService(name, type, CID, login, pwd);
+	}
 }
