@@ -17,4 +17,12 @@ public interface IDonnees {
 	//eventually, getServices should take into account what user is asking for their services. For the demo, we'll assume there is only one user.
 	List<Integer> getServices();
 
+	String getAIName(String aIID);
+
+	String getServiceName(int service_id);
+
+	String getAIType(String cid);
+
+	List<Integer> getRunningServiceNameFromAI(String cid);
+
 }

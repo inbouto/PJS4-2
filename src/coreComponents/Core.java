@@ -251,6 +251,26 @@ public class Core implements ICore {
 			
 		
 	}
+
+	@Override
+	public String getAIName(String AIID) {
+		return donnees.getAIName(AIID);
+	}
+
+	@Override
+	public String getServiceName(int service_id) {
+		return donnees.getServiceName(service_id);
+	}
+
+	@Override
+	public String getAIType(String cid) {
+		return donnees.getAIType(cid);
+	}
+
+	@Override
+	public List<Integer> getRunningServiceIDsFromAI(String cid) {
+		return donnees.getRunningServiceNameFromAI(cid);
+	}
 	
 
 	

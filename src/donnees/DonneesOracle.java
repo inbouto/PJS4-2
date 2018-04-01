@@ -3,6 +3,7 @@ package donnees;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import core.ICore;
 import core.IDonnees;
@@ -161,7 +162,74 @@ public class DonneesOracle implements IDonnees{
 		return null;
 	}
 	
-	
+	@Override
+	public String getAIName(String AIID) {
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("SELECT nomClassifier FROM classifier where CID = " + AIID);
+		
+		ResultSet rs = statement.executeQuery();
+		if(!rs.next()){
+			System.err.println("Erreur requête : getAIName");
+		}
+		else {
+			String username = rs.getString("login");
+			System.out.println(username);
+			return username;
+		}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+		return null;
+	}
 	
 
+	@Override
+	public String getServiceName(int service_id) {
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("SELECT name FROM service where idService = " + service_id);
+		
+		ResultSet rs = statement.executeQuery();
+		if(!rs.next()){
+			System.err.println("Erreur requête : getServiceName");
+		}
+		else {
+			String name = rs.getString("name");
+			System.out.println(name);
+			return name;
+		}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+		return null;
+	}
+	
+	@Override
+	public String getAIType(String cid) {
+		return "Natural language classifier (NLC)";
+	}
+	
+	@Override
+	public List<String> getRunningServiceNameFromAI(String cid) {
+
+		List<String> listNames = new Vector<String>();
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("select name from service,classifierservice where CId='"+cid+"' and classifierservice.idService=service.idService");
+		
+		ResultSet rs = statement.executeQuery();
+		while(rs.next()){
+			listNames.add(rs.getString("name"));
+		}
+		return listNames;
+		} catch (SQLException e1) {
+			System.err.println("Erreur requête : getRunningServiceNameFromAI : "+cid);
+			e1.printStackTrace();
+			}
+		return null;
+	}
+	
 }

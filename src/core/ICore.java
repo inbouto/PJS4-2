@@ -29,6 +29,15 @@ public interface ICore {
 	public List<Integer> getServicesID();
 
 	public void stopService(int service_id);
+
+	public String getAIName(String aiFromService);
+
+	public String getServiceName(int service_id);
+
+	public String getAIType(String cid);
+
+
+	public List<Integer> getRunningServiceIDsFromAI(String cid);
 	
 	
 	
