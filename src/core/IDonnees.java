@@ -35,4 +35,6 @@ public interface IDonnees {
 
 	void deleteService(int service_id);
 
+	void setAIName(String cid, String name);
+
 }

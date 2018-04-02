@@ -19,4 +19,9 @@ public class UserWebAction {
 	public static void deleteService(int service_id){
 		Core.getInstance().deleteService(service_id);
 	}
+	
+	public static void setAIName(String cid, String name){
+		Core.getInstance().setAIName(cid, name);
+	}
+	
 }

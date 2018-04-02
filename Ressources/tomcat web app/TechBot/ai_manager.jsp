@@ -76,7 +76,7 @@ for(String cid : CIDs){
 	buttons += "</td>";
 	buttons += "<td>";
 	buttons += "<input type='button' value='train'" + disabled +"><br>";
-	buttons += "<input type='button' value='edit'" + disabled +"><br>";
+	buttons += "<a href='/TechBot/ai_edit.jsp?cid=" + cid + "'><input type='button' value='edit'" + disabled +"></a><br>";
 	buttons += "<input type='button' value='delete'" + disabled +"><br>";
 	buttons += "</td>";
 	buttons += "</tr>";
@@ -113,7 +113,7 @@ for(String cid : CIDs){
 						
 					</table>
 					
-				<a href="/TechBot/addAI.jsp"><input type="button" value="Create new A.I."><br>
+				<a href="/TechBot/create_ai.jsp"><input type="button" value="Create new A.I."><br>
 				<a href="/TechBot/dashboard.jsp"><input type="button" value="back"></a><br>
 			</div>
 

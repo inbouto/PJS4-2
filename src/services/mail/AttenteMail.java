@@ -21,7 +21,7 @@ public class AttenteMail implements Service{
     private ICore core;
 	private ThreadAttente idleThread;
     
-    public AttenteMail(ICore core, int service_id) throws SQLException{
+    public AttenteMail(ICore core, int service_id){
     	this.SERVICE_ID = service_id;
     	this.core = core;
     	this.username = core.getUsername(SERVICE_ID);

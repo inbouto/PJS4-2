@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 01, 2018 at 05:55 PM
+-- Generation Time: Apr 02, 2018 at 12:30 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -107,17 +107,14 @@ CREATE TABLE IF NOT EXISTS `service` (
   `CID` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idService`),
   KEY `platName` (`platName`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service`
 --
 
 INSERT INTO `service` (`idService`, `classeService`, `login`, `mdp`, `name`, `platName`, `CID`) VALUES
-(1, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'E-mail weather test', 'e-mail', '2fc31ex330-nlc-1535'),
-(2, 'twitter', 'techbotdemo', 'fgVFunR3Z94ueFnE', 'Twitter', NULL, '2fc31ex330-nlc-1535'),
-(3, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'E-mail QBot FAQ', 'e-mail', '2fbbc6x326-nlc-1922'),
-(4, 'services.IHM.IHM_Implementation', 'Local', NULL, 'Server-side UI', 'server-side U.I.', '2fbbc6x326-nlc-1922');
+(14, 'services.mail.AttenteMail', 'techbotdemo@gmail.com', 'fgVFunR3Z94ueFnE', 'TechBot_Presentation', 'e-mail', '2fbbc6x326-nlc-1922');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

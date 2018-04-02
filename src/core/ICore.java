@@ -48,6 +48,8 @@ public interface ICore {
 	public List<String> getAITypes();
 
 	public void deleteService(int service_id);
+
+	public void setAIName(String cid, String name);
 	
 	
 	

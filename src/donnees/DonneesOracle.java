@@ -310,5 +310,18 @@ public class DonneesOracle implements IDonnees{
 			}
 		return null;
 	}
+
+	@Override
+	public void deleteService(int service_id) {
+		try {
+			Statement st = c.createStatement();
+			st.executeUpdate("delete from service where idService = " + service_id);
+			
+		} catch (SQLException e) {
+			System.err.println("Erreur requête : createService");
+			e.printStackTrace();
+		} 
+		
+	}
 	
 }

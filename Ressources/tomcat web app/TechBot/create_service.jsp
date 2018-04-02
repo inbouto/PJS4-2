@@ -61,7 +61,7 @@ private String getPlatformOptions(){
 			A.I. <select name="ai" size="1">
 			<%= available_AIs %>
 			</select><br>
-			Credentials :<br>
+			Credentials (These are used to access the account on which you wish to run the bot on the platform you selected)<br>
 			login <input type="text" name="login"> password <input type="password" name="password"><br>
 			<input type="submit" value="create">
 		</form>

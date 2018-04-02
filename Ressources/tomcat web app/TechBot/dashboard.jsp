@@ -1,8 +1,9 @@
-<%@ page import="webApp.UserWebApp.*" %>
+<%@ page import="webApp.UserWebApp.*"
+	import="java.util.List.*" %>
 
 <%!
-private int getUserServiceAmounts(){
-	return webApp.UserWebApp.getUserServiceAmounts();
+private java.util.List<Integer> getUserServices(){
+	return webApp.UserWebApp.getUserServices();
 }
 private Boolean isOn(int service_id){
 	return webApp.UserWebApp.getServiceState(service_id);
@@ -40,7 +41,7 @@ private String getActionLink(int service_id){
 }
 
 private String getEditLink(int service_id){
-	return "/TechBot/service_edit.jsp?service_id=" + service_id;
+	return "/TechBot/dashboard.jsp";
 }
 
 private String getDisabled(int service_id){
@@ -49,10 +50,13 @@ private String getDisabled(int service_id){
 	return "";
 }
 
+private String getDeleteLink(int service_id){
+	return "/TechBot/delete_service.jsp?service_id=" + service_id;
+}
 %>
 
 <%
-int nbService = getUserServiceAmounts();
+java.util.List<Integer> services_id = getUserServices();
 String buttons = "";
 String name;
 String aiName;
@@ -61,8 +65,9 @@ String actionButtonText;
 String actionLink;
 String username;
 String editLink;
+String deleteLink;
 
-for(int i = 1; i <= nbService; ++i){
+for(int i : services_id){
 	name = getServiceName(i);
 	aiName = getServiceAIName(i);
 	led = getCorrectLed(i);
@@ -70,6 +75,7 @@ for(int i = 1; i <= nbService; ++i){
 	actionLink = getActionLink(i);
 	username = getServiceUsername(i);
 	editLink = getEditLink(i);
+	deleteLink = getDeleteLink(i);
 	
 	buttons += "<tr>";
 	buttons += "<td> " + name + " </td>";
@@ -78,7 +84,8 @@ for(int i = 1; i <= nbService; ++i){
 	buttons += "<td><div class='"+ led + "'></div></td>";
 	buttons += "<td>";
 	buttons += "<a href='" + actionLink + "'><input type='button' value='" + actionButtonText + "'></a><br>";
-	buttons += "<a href='" + editLink + "'><input type='button' value='Edit'" + getDisabled(i) + "></a>";
+	buttons += "<a href='" + editLink + "'><input type='button' value='Edit'" + getDisabled(i) + "></a><br>";
+	buttons += "<a href='" + deleteLink + "'><input type='button' value='Delete'" + getDisabled(i) + "></a>";
 	buttons += "</td>";
 	buttons += "</tr>";
 }

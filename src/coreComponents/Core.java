@@ -38,7 +38,6 @@ public class Core implements ICore {
 			//List<Class<?>> loadedComponents = getComponentsFromFile(initFile);
 			loadedComponents.add(Class.forName("ia.IaWatson"));
 			loadedComponents.add(Class.forName("services.mail.AttenteMail"));
-			loadedComponents.add(Class.forName("services.twitter.Twitter_IMP"));
 			
 		for(Class<?> c : loadedComponents){
 			try {
@@ -296,6 +295,12 @@ public class Core implements ICore {
 	@Override
 	public void deleteService(int service_id) {
 		donnees.deleteService(service_id);
+		
+	}
+
+	@Override
+	public void setAIName(String cid, String name) {
+		donnees.setAIName(cid, name);
 		
 	}
 	

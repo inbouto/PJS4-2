@@ -323,6 +323,19 @@ public class DonneesMySql implements IDonnees{
 		} 
 		
 	}
+
+	@Override
+	public void setAIName(String cid, String name) {
+		try {
+			Statement st = c.createStatement();
+			st.executeUpdate("update classifier set nomClassifier='" + name + "' where cid='" + cid + "'");
+			
+		} catch (SQLException e) {
+			System.err.println("Erreur requête : setAIName");
+			e.printStackTrace();
+		} 
+		
+	}
 	
 
 }

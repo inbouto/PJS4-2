@@ -29,8 +29,22 @@ body{
 	padding-top : 2em;
 	padding-bottom : 2em;
 	text-align : top left;
+	
 }
 
+table {
+    border-collapse: collapse;
+	width : 100%;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+	padding : 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
 .tabli-tablo{
 	margin-top : 1em;
 	margin-left : 1em;  
@@ -47,18 +61,15 @@ body{
 	font-size: 80px;
 }
 
-table {
-        border-collapse: separate;
-        border-spacing: 30px 8px; /* horizontal , vertical (8px) */
+
+
+input[type=button]{
+    background-color:#f2f2f2;
 }
 
-
-
-
-
-
-
-
+.AI{
+	position:inline;
+}
 
 
 
