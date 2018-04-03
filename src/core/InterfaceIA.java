@@ -1,5 +1,6 @@
 package core;
 
 public interface InterfaceIA {
-	public String genererReponse(String question);
+
+	String genererReponse(String question, String classifierId);
 }

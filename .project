@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>classes</name>
+			<type>2</type>
+			<location>C:/Users/Guillaume/Documents/work/tomcat/apache-tomcat-8.5.29/webapps/TechBot/WEB-INF/classes</location>
+		</link>
+	</linkedResources>
 </projectDescription>
