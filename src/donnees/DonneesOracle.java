@@ -337,4 +337,26 @@ public class DonneesOracle implements IDonnees{
 		
 	}
 	
+	@Override
+	public String getServiceType(int service_id) {
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("SELECT platName FROM service where idService = " + service_id);
+		
+		ResultSet rs = statement.executeQuery();
+		if(!rs.next()){
+			System.err.println("Erreur requête : getServiceType : " + service_id);
+		}
+		else {
+			String cls = rs.getString("platName");
+			System.out.println(cls);
+			return cls;
+		}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+		return null;
+	}
+	
 }

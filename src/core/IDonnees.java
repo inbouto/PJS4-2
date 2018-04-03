@@ -37,4 +37,6 @@ public interface IDonnees {
 
 	void setAIName(String cid, String name);
 
+	String getServiceType(int service_id);
+
 }

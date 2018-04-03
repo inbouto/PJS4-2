@@ -50,6 +50,8 @@ public interface ICore {
 	public void deleteService(int service_id);
 
 	public void setAIName(String cid, String name);
+
+	public String getServiceType(int service_id);
 	
 	
 	

@@ -52,5 +52,9 @@ public class UserWebApp {
 	public static List<String> getAITypes(){
 		return Core.getInstance().getAITypes();
 	}
+	
+	public static String getServiceType(int service_id){
+		return Core.getInstance().getServiceType(service_id);
+	}
 
 }

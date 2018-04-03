@@ -303,6 +303,11 @@ public class Core implements ICore {
 		donnees.setAIName(cid, name);
 		
 	}
+
+	@Override
+	public String getServiceType(int service_id) {
+		return donnees.getServiceType(service_id);
+	}
 	
 
 	
