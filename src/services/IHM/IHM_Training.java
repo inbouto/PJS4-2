@@ -18,16 +18,16 @@ public class IHM_Training extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ICore core;
-	private String AIid;
+	private int service_id;
 	
     JLabel result;
     String currentClasse;
 	private JButton boutonRetourMenu;
 	private JButton boutonQuitter;
  
-    public IHM_Training(ICore core, String AIid) throws IOException {
+    public IHM_Training(ICore core, int service_id) throws IOException {
     	this.core = core;
-    	this.AIid = AIid;
+    	this.service_id = service_id;
     	
     	this.setTitle("TechBot Training");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -202,7 +202,7 @@ public class IHM_Training extends JFrame implements ActionListener {
     	if (e.getSource() == boutonRetourMenu) {
     		this.dispose();
 			try {
-				new IHM_Menu(core, AIid);
+				new IHM_Menu(core, service_id);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -219,7 +219,7 @@ public class IHM_Training extends JFrame implements ActionListener {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 				try {
-					new IHM_Training(null, null);
+					new IHM_Training(null, 0);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

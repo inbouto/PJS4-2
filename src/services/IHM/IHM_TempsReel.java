@@ -20,7 +20,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ICore core;
-	private String AIid;
+	private int service_id;
 	
 	private JTextField zoneDeSaisie;
     private JTextArea texteUser;
@@ -31,9 +31,9 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	private JButton boutonRetourMenu;
 	private JButton boutonQuitter;
  
-    public IHM_TempsReel(ICore core, String AIid) throws IOException {
+    public IHM_TempsReel(ICore core, int service_id) throws IOException {
     	this.core = core;
-    	this.AIid = AIid;
+    	this.service_id = service_id;
     	
     	this.setTitle("TechBot Temps Reel");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -201,7 +201,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
     	if (e.getSource() == boutonRetourMenu) {
     		this.dispose();
 			try {
-				new IHM_Menu(core, AIid);
+				new IHM_Menu(core, service_id);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -231,14 +231,14 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	}
 
 	public void reponse(String texteReponse) throws SQLException {
-		this.reponse = core.askAI(texteReponse, this.AIid);
+		this.reponse = core.askAI(texteReponse, core.getAIFromService(this.service_id));
 	}
  
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
-					new IHM_TempsReel(null, null);
+					new IHM_TempsReel(null, 0);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

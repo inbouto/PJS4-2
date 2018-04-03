@@ -32,16 +32,16 @@ public class IHM_Menu extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ICore core;
-	private String AIid;
+	private int service_id;
 	
 	private JButton boutonApplication; 
 	private JButton boutonEntrainement;
 	private JButton boutonQuitter;
 
 
-	public IHM_Menu(ICore core, String AIid) throws IOException {
+	public IHM_Menu(ICore core, int service_id) throws IOException {
 		this.core = core;
-		this.AIid = AIid;
+		this.service_id = service_id;
 
 		
     	this.setTitle("TechBot Menu");
@@ -148,14 +148,14 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		this.dispose();
 		if (e.getSource() == boutonApplication) {
 			try {
-				new IHM_TempsReel(core, AIid);
+				new IHM_TempsReel(core, service_id);
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
 		}
 		else if (e.getSource() == boutonEntrainement) {
 			try {
-				new IHM_Training(core, AIid);
+				new IHM_Training(core, service_id);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -169,7 +169,7 @@ public class IHM_Menu extends JFrame implements ActionListener {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
-					new IHM_Menu(null, null);
+					new IHM_Menu(null, 0);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
