@@ -35,7 +35,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
     	this.core = core;
     	this.service_id = service_id;
     	
-    	this.setTitle("TechBot Temps Reel");
+    	this.setTitle("Chat QBot");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setUndecorated(true);
         this.setResizable(false);
@@ -104,7 +104,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
     	//Code du titre
         JPanel panelTitre = new JPanel();
     	
-    	JLabel Titre = new JLabel("Chat TechBot");
+    	JLabel Titre = new JLabel("Chat Qbot");
         Titre.setFont(new Font("Dialog", Font.BOLD, 25));
         Titre.setAlignmentX(Component.CENTER_ALIGNMENT);
         

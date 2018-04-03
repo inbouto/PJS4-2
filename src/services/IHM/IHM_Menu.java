@@ -44,7 +44,7 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		this.service_id = service_id;
 
 		
-    	this.setTitle("TechBot Menu");
+    	this.setTitle("QBot Menu");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setUndecorated(true);
     	this.setResizable(false);

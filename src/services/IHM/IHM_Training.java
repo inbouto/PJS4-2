@@ -29,7 +29,7 @@ public class IHM_Training extends JFrame implements ActionListener {
     	this.core = core;
     	this.service_id = service_id;
     	
-    	this.setTitle("TechBot Training");
+    	this.setTitle("QBot Training");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setUndecorated(true);
     	this.setResizable(false);
@@ -99,7 +99,7 @@ public class IHM_Training extends JFrame implements ActionListener {
     	//Code du titre
     	JPanel panelTitre = new JPanel();
         
-        JLabel labelTitre = new JLabel("TechBot Training");
+        JLabel labelTitre = new JLabel("QBot Training");
         labelTitre.setFont(new Font("Dialog", Font.BOLD, 25));
         labelTitre.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelTitre.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
