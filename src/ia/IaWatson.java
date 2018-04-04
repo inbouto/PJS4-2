@@ -51,5 +51,17 @@ public class IaWatson implements InterfaceIA{
 		Classifier response = service.createClassifier(options).execute();
 		return response.getClassifierId();
 	}
+
+	@Override
+	public String createAI(File csvTraining) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean isAvailable(String cid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

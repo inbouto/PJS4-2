@@ -45,4 +45,6 @@ public interface IDonnees {
 
 	void setClassText(String classId, String classText);
 
+	void createAI(String name, String cid);
+
 }

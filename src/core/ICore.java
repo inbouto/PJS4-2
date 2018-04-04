@@ -1,5 +1,6 @@
 package core;
 
+import java.io.File;
 import java.util.List;
 
 public interface ICore {
@@ -58,6 +59,8 @@ public interface ICore {
 	public String getClasseText(String classe);
 
 	public void setClassText(String classId, String classText);
+
+	public void createNewAI(String name, File trainingData);
 	
 	
 	

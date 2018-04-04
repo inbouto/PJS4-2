@@ -1,5 +1,7 @@
 package webApp;
 
+import java.io.File;
+
 import coreComponents.Core;
 
 public class UserWebAction {
@@ -26,6 +28,10 @@ public class UserWebAction {
 	
 	public static void setClassText(String classId, String classText){
 		Core.getInstance().setClassText(classId, classText);
+	}
+	
+	public static void createNewAI(String name, File trainingData){
+		Core.getInstance().createNewAI(name, trainingData);
 	}
 	
 }

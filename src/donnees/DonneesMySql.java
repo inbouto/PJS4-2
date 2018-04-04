@@ -414,6 +414,19 @@ public class DonneesMySql implements IDonnees{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void createAI(String name, String cid) {
+		try {
+			Statement st = c.createStatement();
+			st.executeUpdate("insert into classifier (cid, nomClassifier) VALUES ('" + cid + "', '" + name + "')");
+			
+		} catch (SQLException e) {
+			System.err.println("Erreur requête : createService");
+			e.printStackTrace();
+		} 
+		
+	}
 	
 	
 

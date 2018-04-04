@@ -1,5 +1,6 @@
 package coreComponents;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
@@ -323,6 +324,12 @@ public class Core implements ICore {
 	public void setClassText(String classId, String classText) {
 		donnees.setClassText(classId, classText);
 		
+	}
+
+	@Override
+	public void createNewAI(String name, File trainingData) {
+		String cid = classifierAI.createAI(trainingData);
+		donnees.createAI(name, cid);
 	}
 	
 
