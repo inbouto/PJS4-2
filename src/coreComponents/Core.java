@@ -329,6 +329,17 @@ public class Core implements ICore {
 	@Override
 	public void createNewAI(String name, File trainingData) {
 		String cid = classifierAI.createAI(trainingData);
+		try {
+			while(!classifierAI.isAvailable(cid)){
+				
+					Thread.sleep(10000);
+				
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		donnees.addClasses(classifierAI.getAIClasses(cid), cid);
 		donnees.createAI(name, cid);
 	}
 	

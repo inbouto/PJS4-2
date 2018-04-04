@@ -2,6 +2,8 @@ package ia;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifyOptions;
@@ -60,6 +62,12 @@ public class IaWatson implements InterfaceIA{
 
 	@Override
 	public Boolean isAvailable(String cid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAIClasses(String cid) {
 		// TODO Auto-generated method stub
 		return null;
 	}

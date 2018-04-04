@@ -419,7 +419,22 @@ public class DonneesOracle implements IDonnees{
 			st.executeUpdate("insert into classifier (cid, nomClassifier) VALUES ('" + cid + "', '" + name + "')");
 			
 		} catch (SQLException e) {
-			System.err.println("Erreur requête : createService");
+			System.err.println("Erreur requête : createAI");
+			e.printStackTrace();
+		} 
+		
+	}
+	
+	@Override
+	public void addClasses(List<String> aiClasses, String cid) {
+		try {
+			Statement st = c.createStatement();
+			for(String classe : aiClasses){
+				st.executeUpdate("insert into classe (idClasse, cid, text) VALUES ('" + classe + "', '" + cid + "', '')");
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("Erreur requête : addClasses");
 			e.printStackTrace();
 		} 
 		

@@ -1,6 +1,7 @@
 package core;
 
 import java.io.File;
+import java.util.List;
 
 public interface InterfaceIA {
 
@@ -9,4 +10,6 @@ public interface InterfaceIA {
 	String createAI(File csvTraining);
 	
 	Boolean isAvailable(String cid);
+	
+	public List<String> getAIClasses(String cid);
 }

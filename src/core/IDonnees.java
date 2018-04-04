@@ -47,4 +47,6 @@ public interface IDonnees {
 
 	void createAI(String name, String cid);
 
+	void addClasses(List<String> aiClasses, String cid);
+
 }
