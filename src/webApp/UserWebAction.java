@@ -24,4 +24,8 @@ public class UserWebAction {
 		Core.getInstance().setAIName(cid, name);
 	}
 	
+	public static void setClassText(String classId, String classText){
+		Core.getInstance().setClassText(classId, classText);
+	}
+	
 }

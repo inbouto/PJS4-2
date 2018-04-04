@@ -308,6 +308,22 @@ public class Core implements ICore {
 	public String getServiceType(int service_id) {
 		return donnees.getServiceType(service_id);
 	}
+
+	@Override
+	public List<String> getClasses(String cid) {
+		return donnees.getClasses(cid);
+	}
+
+	@Override
+	public String getClasseText(String classe) {
+		return donnees.getClasseText(classe);
+	}
+
+	@Override
+	public void setClassText(String classId, String classText) {
+		donnees.setClassText(classId, classText);
+		
+	}
 	
 
 	

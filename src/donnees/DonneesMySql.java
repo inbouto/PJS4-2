@@ -22,7 +22,7 @@ public class DonneesMySql implements IDonnees{
 		this.core = core;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			this.c = DriverManager.getConnection("jdbc:mysql://vs-wamp/phpmyadmin/pweb17_patry?user=patry&password=patry");
+			this.c = DriverManager.getConnection("jdbc:mysql://localhost/techbot?user=techbot_run&password=evVkGpsK6yQK9z4X");
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -38,7 +38,6 @@ public class DonneesMySql implements IDonnees{
 			statement = c.prepareStatement("SELECT mdp FROM service where idservice = ?");
 		
 		statement.setInt(1, SERVICE_ID);
-		System.out.println(SERVICE_ID);
 		ResultSet rs = statement.executeQuery();
 		if(!rs.next()){
 			System.err.println("Erreur requête : getPassword");
@@ -358,6 +357,64 @@ public class DonneesMySql implements IDonnees{
 			}
 		return null;
 	}
+
+	@Override
+	public List<String> getClasses(String cid) {
+		List<String> listNames = new Vector<String>();
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("select idClasse from classe where cid='" + cid + "'");
+		
+		ResultSet rs = statement.executeQuery();
+		while(rs.next()){
+			listNames.add(rs.getString("idClasse"));
+		}
+		return listNames;
+		} catch (SQLException e1) {
+			System.err.println("Erreur requête : getClasses : " + cid);
+			e1.printStackTrace();
+			}
+		return null;
+	}
+
+	@Override
+	public String getClasseText(String classe) {
+		PreparedStatement statement;
+		try {
+			statement = c.prepareStatement("SELECT text FROM classe where idClasse = '" + classe + "'");
+		
+		ResultSet rs = statement.executeQuery();
+		if(!rs.next()){
+			System.err.println("Erreur requête : getClasseText : " + classe);
+		}
+		else {
+			String cls = rs.getString("text");
+			System.out.println(cls);
+			return cls;
+		}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+		return null;
+	}
+
+	@Override
+	public void setClassText(String classId, String classText) {
+		try {		
+			
+			PreparedStatement st = c.prepareStatement("update classe set text=? where idClasse=?");
+			
+			st.setString(1, classText);
+			st.setString(2, classId);
+			st.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.err.println("Erreur requête : setClassText");
+			e.printStackTrace();
+		}
+	}
+	
 	
 
 }

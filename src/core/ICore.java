@@ -52,6 +52,12 @@ public interface ICore {
 	public void setAIName(String cid, String name);
 
 	public String getServiceType(int service_id);
+
+	public List<String> getClasses(String cid);
+
+	public String getClasseText(String classe);
+
+	public void setClassText(String classId, String classText);
 	
 	
 	

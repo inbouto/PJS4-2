@@ -56,5 +56,13 @@ public class UserWebApp {
 	public static String getServiceType(int service_id){
 		return Core.getInstance().getServiceType(service_id);
 	}
+	
+	public static List<String> getClasses(String cid){
+		return Core.getInstance().getClasses(cid);
+	}
+	
+	public static String getClasseText(String classe){
+		return Core.getInstance().getClasseText(classe);
+	}
 
 }

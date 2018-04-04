@@ -39,4 +39,10 @@ public interface IDonnees {
 
 	String getServiceType(int service_id);
 
+	List<String> getClasses(String cid);
+
+	String getClasseText(String classe);
+
+	void setClassText(String classId, String classText);
+
 }
