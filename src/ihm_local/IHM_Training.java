@@ -1,9 +1,13 @@
-package services.IHM;
+package ihm_local;
 	 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,10 +28,17 @@ public class IHM_Training extends JFrame implements ActionListener {
     String currentClasse;
 	private JButton boutonRetourMenu;
 	private JButton boutonQuitter;
+	private Socket s;
+	private PrintWriter out;
+	private BufferedReader in;
  
-    public IHM_Training(ICore core, int service_id) throws IOException {
+    public IHM_Training(Socket s) throws IOException {
     	this.core = core;
     	this.service_id = service_id;
+    	this.s = s;
+    	
+    	out = new PrintWriter(s.getOutputStream(), true);
+	    in = new BufferedReader(new InputStreamReader(s.getInputStream()));
     	
     	this.setTitle("QBot Training");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -202,7 +213,7 @@ public class IHM_Training extends JFrame implements ActionListener {
     	if (e.getSource() == boutonRetourMenu) {
     		this.dispose();
 			try {
-				new IHM_Menu(core, service_id);
+				new IHM_Menu(s);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -215,16 +226,16 @@ public class IHM_Training extends JFrame implements ActionListener {
 		}		
     }
  
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 				try {
-					new IHM_Training(null, 0);
+					new IHM_Training(null);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
         });
-    }
+    }*/
 }

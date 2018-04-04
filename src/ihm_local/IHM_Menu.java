@@ -1,4 +1,4 @@
-package services.IHM;
+package ihm_local;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -10,8 +10,12 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -30,6 +34,19 @@ public class IHM_Menu extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
+	
+	public static void main(String[] args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	try {
+					new IHM_Menu(new Socket("localhost", 7999));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+        });
+	}
+	
 	private static final long serialVersionUID = 1L;
 	private ICore core;
 	private int service_id;
@@ -37,12 +54,18 @@ public class IHM_Menu extends JFrame implements ActionListener {
 	private JButton boutonApplication; 
 	private JButton boutonEntrainement;
 	private JButton boutonQuitter;
+	private Socket s;
+	private PrintWriter out;
+	private BufferedReader in;
 
 
-	public IHM_Menu(ICore core, int service_id) throws IOException {
+	public IHM_Menu(Socket s) throws IOException {
 		this.core = core;
 		this.service_id = service_id;
-
+		this.s = s;
+		
+		out = new PrintWriter(s.getOutputStream(), true);
+	    in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		
     	this.setTitle("QBot Menu");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -148,14 +171,14 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		this.dispose();
 		if (e.getSource() == boutonApplication) {
 			try {
-				new IHM_TempsReel(core, service_id);
+				new IHM_TempsReel(s);
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
 		}
 		else if (e.getSource() == boutonEntrainement) {
 			try {
-				new IHM_Training(core, service_id);
+				new IHM_Training(s);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -165,7 +188,7 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		}
 	}
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
@@ -175,5 +198,5 @@ public class IHM_Menu extends JFrame implements ActionListener {
 				}
             }
         });
-    }
+    }*/
 }

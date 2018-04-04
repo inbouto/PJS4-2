@@ -22,11 +22,12 @@ public class DonneesMySql implements IDonnees{
 		this.core = core;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			this.c = DriverManager.getConnection("jdbc:mysql://vs-wamp/phpmyadmin/pweb17_patry?user=patry&password=patry");
-			
+			this.c = DriverManager.getConnection("jdbc:mysql://86.246.79.4:8081/techbot","techbot_run","evVkGpsK6yQK9z4X");
+			System.out.println("connecté au serveur mysql");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
+			System.err.println("CONNEXION IMPOSSIBLE : ");
 			e.printStackTrace();
 		}
 	}

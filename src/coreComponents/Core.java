@@ -22,14 +22,14 @@ public class Core implements ICore {
 		instance = new Core();
 	}
 	private static Core instance;
-	private List<Class<? extends Service>> ihm;
+	private List<Class<? extends Service>> services;
 	private InterfaceIA classifierAI;
 	private IDonnees donnees;
 	private Map<Integer, Pair<Service,Thread>> userServices;
 	
 	@SuppressWarnings("unchecked")
 	public Core() {
-		ihm = new ArrayList<Class<? extends Service>>();
+		services = new ArrayList<Class<? extends Service>>();
 		userServices = new HashMap<Integer, Pair<Service,Thread>>();
 		
 		//Ce bloc initialise la liste des components, puis charge dans l'ordre les components précisés
@@ -47,7 +47,7 @@ public class Core implements ICore {
 				}
 				else if(runnableCheck(c)){
 					//TODO: Code sale, peut-on faire autrement qu'un cast ???
-					this.ihm.add((Class<? extends Service>) c);
+					this.services.add((Class<? extends Service>) c);
 				}
 				else{
 					throw new UnknownComponentTypeException();
@@ -175,7 +175,7 @@ public class Core implements ICore {
 	@Override
 	public String toString(){
 		String r = "IA : "+ classifierAI +"\nIHM : ";
-		for(Class<? extends Runnable> c : ihm){
+		for(Class<? extends Runnable> c : services){
 			r += "\n" + c.getName();
 		}
 		return r;
@@ -208,7 +208,7 @@ public class Core implements ICore {
 	@Override
 	public void startService(int service_id) {
 		String className = donnees.getClasseService(service_id);
-		for(Class<? extends Service> c : ihm){
+		for(Class<? extends Service> c : services){
 			if(c.getName().equals(className)){
 				System.out.println("on lance un thread avec " + c);
 				try {

@@ -1,9 +1,13 @@
-package services.IHM;
+package ihm_local;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
@@ -19,8 +23,9 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ICore core;
-	private int service_id;
+	private Socket s;
+	private PrintWriter out;
+	private BufferedReader in;
 	
 	private JTextField zoneDeSaisie;
     private JTextArea texteUser;
@@ -31,9 +36,11 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	private JButton boutonRetourMenu;
 	private JButton boutonQuitter;
  
-    public IHM_TempsReel(ICore core, int service_id) throws IOException {
-    	this.core = core;
-    	this.service_id = service_id;
+    public IHM_TempsReel(Socket s) throws IOException {
+    	this.s = s;
+    	
+    	out = new PrintWriter(s.getOutputStream(), true);
+	    in = new BufferedReader(new InputStreamReader(s.getInputStream()));
     	
     	this.setTitle("Chat QBot");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -201,7 +208,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
     	if (e.getSource() == boutonRetourMenu) {
     		this.dispose();
 			try {
-				new IHM_Menu(core, service_id);
+				new IHM_Menu(s);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -214,12 +221,7 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 	        zoneDeSaisie.selectAll();        
 	        texteUser.setCaretPosition(texteUser.getDocument().getLength());
 	       
-	        try {
-				reponse(saisie());
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+	        reponse(saisie());
 	        texteIA.append(reponse + newline);
 	        texteIA.setCaretPosition(texteIA.getDocument().getLength());
 	        
@@ -230,19 +232,26 @@ public class IHM_TempsReel extends JFrame implements ActionListener {
 		return zoneDeSaisie.getText();
 	}
 
-	public void reponse(String texteReponse) throws SQLException {
-		this.reponse = core.askAI(texteReponse, core.getAIFromService(this.service_id));
+	public void reponse(String texteReponse) {
+		
+		try {
+			out.println(texteReponse);
+			this.reponse = in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
  
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
-					new IHM_TempsReel(null, 0);
+					new IHM_TempsReel(null);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
             }
         });
-    }
+    }*/
 }
