@@ -21,6 +21,7 @@ public class IHM_Implementation implements Service {
 	
 	@SuppressWarnings("unused")
 	private String IdService;
+	private boolean run;
 
 	
 	public static void main(String[] args) {
@@ -36,6 +37,7 @@ public class IHM_Implementation implements Service {
 			this.service_id = service_id;
 			threads = new Vector<Thread>();
 			s = new ServerSocket(port);
+			run=true;
 		} catch (IOException e) {
 			System.err.println("SERVICE LAUNCH IHM_Implementation ABORTED : ");
 			e.printStackTrace();
@@ -47,9 +49,11 @@ public class IHM_Implementation implements Service {
 	@Override
 	public void run() {
 		try {
-			Thread t = new Thread(new IHM_Comm(s.accept(), core, service_id));
-			threads.add(t);
-			t.start();
+			while(run){
+				Thread t = new Thread(new IHM_Comm(s.accept(), core, service_id));
+				threads.add(t);
+				t.start();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,6 +64,7 @@ public class IHM_Implementation implements Service {
 		for(Thread t : threads){
 			t.interrupt();
 		}
+		run=false;
 		
 	}
 

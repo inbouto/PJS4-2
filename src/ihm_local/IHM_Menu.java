@@ -10,11 +10,8 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import javax.imageio.ImageIO;
@@ -28,7 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import core.ICore;
 
 public class IHM_Menu extends JFrame implements ActionListener {
 	/**
@@ -39,7 +35,7 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
-					new IHM_Menu(new Socket("localhost", 7999));
+					new IHM_Menu(new Socket("86.246.79.4", 7999));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -48,24 +44,16 @@ public class IHM_Menu extends JFrame implements ActionListener {
 	}
 	
 	private static final long serialVersionUID = 1L;
-	private ICore core;
-	private int service_id;
 	
 	private JButton boutonApplication; 
 	private JButton boutonEntrainement;
 	private JButton boutonQuitter;
 	private Socket s;
-	private PrintWriter out;
-	private BufferedReader in;
 
 
 	public IHM_Menu(Socket s) throws IOException {
-		this.core = core;
-		this.service_id = service_id;
 		this.s = s;
 		
-		out = new PrintWriter(s.getOutputStream(), true);
-	    in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		
     	this.setTitle("QBot Menu");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
