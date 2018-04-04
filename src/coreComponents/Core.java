@@ -326,7 +326,7 @@ public class Core implements ICore {
 		
 	}
 
-	@Override
+	/*@Override
 	public void createNewAI(String name, File trainingData) {
 		String cid = classifierAI.createAI(trainingData);
 		try {
@@ -341,7 +341,7 @@ public class Core implements ICore {
 		}
 		donnees.addClasses(classifierAI.getAIClasses(cid), cid);
 		donnees.createAI(name, cid);
-	}
+	}*/
 	
 
 	

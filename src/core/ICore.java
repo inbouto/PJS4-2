@@ -60,7 +60,7 @@ public interface ICore {
 
 	public void setClassText(String classId, String classText);
 
-	public void createNewAI(String name, File trainingData);
+	//public void createNewAI(String name, File trainingData);
 	
 	
 	

@@ -412,7 +412,7 @@ public class DonneesOracle implements IDonnees{
 		return null;
 	}
 	
-	@Override
+	/*@Override
 	public void createAI(String name, String cid) {
 		try {
 			Statement st = c.createStatement();
@@ -438,6 +438,6 @@ public class DonneesOracle implements IDonnees{
 			e.printStackTrace();
 		} 
 		
-	}
+	}*/
 	
 }

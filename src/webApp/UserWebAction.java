@@ -31,7 +31,7 @@ public class UserWebAction {
 	}
 	
 	public static void createNewAI(String name, File trainingData){
-		Core.getInstance().createNewAI(name, trainingData);
+		//Core.getInstance().createNewAI(name, trainingData);
 	}
 	
 }

@@ -415,7 +415,7 @@ public class DonneesMySql implements IDonnees{
 		}
 	}
 
-	@Override
+	/*@Override
 	public void createAI(String name, String cid) {
 		try {
 			Statement st = c.createStatement();
@@ -441,7 +441,7 @@ public class DonneesMySql implements IDonnees{
 			e.printStackTrace();
 		} 
 		
-	}
+	}*/
 	
 	
 

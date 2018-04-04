@@ -54,7 +54,7 @@ public class IaWatson implements InterfaceIA{
 		return response.getClassifierId();
 	}
 
-	@Override
+	/*@Override
 	public String createAI(File csvTraining) {
 		// TODO Auto-generated method stub
 		return null;
@@ -70,6 +70,6 @@ public class IaWatson implements InterfaceIA{
 	public List<String> getAIClasses(String cid) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 	
 }
