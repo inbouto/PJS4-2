@@ -35,7 +35,7 @@ public class IHM_Menu extends JFrame implements ActionListener {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	try {
-					new IHM_Menu(new Socket("86.246.79.4", 7999));
+					new IHM_Menu(new Socket("localhost", 7999));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

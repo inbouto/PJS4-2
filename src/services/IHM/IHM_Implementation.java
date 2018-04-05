@@ -25,7 +25,7 @@ public class IHM_Implementation implements Service {
 
 	
 	public static void main(String[] args) {
-		new Thread(new IHM_Implementation(Core.getInstance(), 16)).start();
+		new Thread(new IHM_Implementation(null, 0)).start();
 	}
 	
 	

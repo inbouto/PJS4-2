@@ -28,7 +28,8 @@ public class IHM_Comm implements Runnable {
 		    BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		    
 		    while(true){
-		    	out.println(core.askAI(in.readLine(), core.getAIFromService(service_id)));
+		    	
+		    	out.println("response for : " + in.readLine());
 		    }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
